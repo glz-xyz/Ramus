@@ -1,0 +1,6 @@
+{
+    "cmake.buildBeforeRun": true,
+    "cmake.saveBeforeBuild": true,
+    "cmake.parallelJobs": 12,
+    "cmake.configureOnOpen": true
+}

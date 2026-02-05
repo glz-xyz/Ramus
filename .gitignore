@@ -1,41 +1,28 @@
-# Prerequisites
-*.d
+# --- Build Artifacts ---
+build/
+bin/
+obj/
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+# --- Visual Studio / MSVC Clutter ---
+.vs/
+*.sln
+*.vcxproj
+*.filters
+*.user
+*.suo
+*.db
+*.opendb
 
-# Precompiled Headers
-*.gch
-*.pch
+# --- VS Code Settings ---
+.vscode/ipch/
+.vscode/browse.VC.db
+.vscode/cmake-kits.json
 
-# Linker files
-*.ilk
+# --- OS / Miscellaneous ---
+.DS_Store
+Thumbs.db
+desktop.ini
 
-# Debugger Files
-*.pdb
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
-
-# debug information files
-*.dwo
+# --- CMake Specific ---
+CMakeSettings.json
+CMakeUserPresets.json
