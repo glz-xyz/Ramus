@@ -73,6 +73,10 @@ add_library(RamusEngine STATIC
     src/Core/ServiceLocator.cpp
     src/Graphics/Renderer.cpp
     src/Graphics/ResourceService.cpp
+    src/Graphics/Model.cpp
+    src/Graphics/Material.cpp
+    src/Graphics/Mesh.cpp
+    src/Graphics/Vertex.cpp
 )
 
 target_include_directories(RamusEngine 
