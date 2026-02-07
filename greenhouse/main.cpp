@@ -1,4 +1,4 @@
-#include "ramus/Core/App.hpp"
+#include "Ramus/Core/App.hpp"
 
 int main() 
 {

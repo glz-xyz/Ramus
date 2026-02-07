@@ -1,4 +1,4 @@
-#include "ramus/Core/Log.hpp"
+#include "Ramus/Core/Log.hpp"
 
 namespace ramus
 {

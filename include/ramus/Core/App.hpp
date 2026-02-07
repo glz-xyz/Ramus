@@ -1,7 +1,7 @@
 #pragma once
 
-#include "ramus/Core/AppWindow.hpp"
-#include "ramus/Resources/IResourceService.hpp"
+#include "Ramus/Core/AppWindow.hpp"
+#include "Ramus/Resources/IResourceService.hpp"
 
 #include <string>
 #include <memory>

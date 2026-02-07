@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ramus/Resources/IResourceService.hpp"
+#include "Ramus/Resources/IResourceService.hpp"
 
 namespace ramus
 {

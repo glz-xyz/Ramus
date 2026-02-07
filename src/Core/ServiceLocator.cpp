@@ -1,4 +1,4 @@
-#include "ramus/Core/ServiceLocator.hpp"
+#include "Ramus/Core/ServiceLocator.hpp"
 
 namespace ramus
 {
