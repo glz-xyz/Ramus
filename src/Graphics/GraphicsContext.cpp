@@ -1,7 +1,7 @@
 #include "Ramus/Graphics/GraphicsContext.hpp"
+#include "Ramus/Graphics/GraphicsInternal.hpp"
 #include "Ramus/Core/Log.hpp"
 
-#include <glad/gl.h>
 #include <GLFW/glfw3.h>
 
 namespace ramus 
