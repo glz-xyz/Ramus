@@ -7,25 +7,28 @@
 
 namespace ramus
 {
+    Renderer::Renderer()
+    {
+        m_graphicsDevice = std::make_unique<GraphicsDevice>();
+    }
 
     void Renderer::Init()
     {
-        if (!gladLoadGL(glfwGetProcAddress)) 
-        {
-            Log::GetRendererLogger()->critical("Failed to initialize GLAD!");
-            throw std::runtime_error("Failed to initialize GLAD");
-        }
+        glEnable(GL_DEPTH_TEST);
+        glDepthFunc(GL_LESS);
 
-        Log::GetRendererLogger()->info("GLAD initialized (OpenGL {})", (const char*)glGetString(GL_VERSION));
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_BACK);
     }
 
-    void Renderer::Clear()
+    void Renderer::BeginFrame()
     {
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        m_graphicsDevice->SetClearColor({0.384f, 0.506f, 0.255f, 1.0f});
+        m_graphicsDevice->Clear();
     }
 
-    void Renderer::SetClearColor(const glm::vec4& color)
+    void Renderer::EndFrame()
     {
-        glClearColor(color.r, color.g, color.b, color.a);
+        // [TODO] ImGui render data, post-processing, etc.
     }
 }

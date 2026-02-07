@@ -73,10 +73,12 @@ target_include_directories(imgui_setup PUBLIC ${imgui_SOURCE_DIR} ${imgui_SOURCE
 # =================================================================================================
 add_library(RamusEngine STATIC
     src/Core/App.cpp
-    src/Core/AppWindow.cpp
+    src/Core/Window.cpp
     src/Core/Log.cpp
     src/Core/ServiceLocator.cpp
     src/Resources/ResourceService.cpp
+    src/Graphics/GraphicsContext.cpp
+    src/Graphics/GraphicsDevice.cpp
     src/Graphics/Renderer.cpp
     src/Graphics/Model.cpp
     src/Graphics/Material.cpp

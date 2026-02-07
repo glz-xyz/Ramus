@@ -1,6 +1,10 @@
 #pragma once
 
+#include "Ramus/Graphics/GraphicsDevice.hpp"
+
 #include <glm/glm.hpp>
+
+#include <memory>
 
 namespace ramus
 {
@@ -8,9 +12,14 @@ namespace ramus
     class Renderer
     {
     public:
-        static void Init();
-        static void Clear();
-        static void SetClearColor(const glm::vec4& color);
+        Renderer();
+
+        void Init();
+        void BeginFrame();
+        void EndFrame();
+
+    private:
+        std::unique_ptr<GraphicsDevice> m_graphicsDevice;
     };
 
 }

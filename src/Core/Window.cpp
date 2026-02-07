@@ -1,4 +1,4 @@
-#include "Ramus/Core/AppWindow.hpp"
+#include "Ramus/Core/Window.hpp"
 #include "Ramus/Core/Log.hpp"
 
 #include <GLFW/glfw3.h>
@@ -8,7 +8,7 @@
 namespace ramus
 {
 
-    AppWindow::AppWindow(const std::string& title, int width, int height)
+    Window::Window(const std::string& title, int width, int height)
     {
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4); 
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
@@ -18,8 +18,8 @@ namespace ramus
         if (m_nativeWindow)
         {
             Log::GetWindowLogger()->info("GLFW Window created: '{}' ({}x{})", title, width, height);
-            glfwMakeContextCurrent(m_nativeWindow);
-            glfwSwapInterval(1);
+            
+            m_graphicsContext = std::make_unique<GraphicsContext>(m_nativeWindow);
         }
         else
         {
@@ -27,24 +27,24 @@ namespace ramus
         }
     }
 
-    AppWindow::~AppWindow()
+    Window::~Window()
     {
         glfwDestroyWindow(m_nativeWindow);
     }
 
-    void AppWindow::HandleEvents()
+    void Window::HandleEvents()
     {
         glfwPollEvents();
     }
 
-    bool AppWindow::ShouldClose() const
+    bool Window::IsOpen() const
     {
-        return glfwWindowShouldClose(m_nativeWindow);
+        return !glfwWindowShouldClose(m_nativeWindow);
     }
 
-    void AppWindow::SwapBuffers()
+    void Window::Display()
     {
-        glfwSwapBuffers(m_nativeWindow);
+        m_graphicsContext->SwapBuffers();
     }
 
 }
