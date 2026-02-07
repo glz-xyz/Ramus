@@ -71,8 +71,8 @@ add_library(RamusEngine STATIC
     src/Core/AppWindow.cpp
     src/Core/Log.cpp
     src/Core/ServiceLocator.cpp
+    src/Resources/ResourceService.cpp
     src/Graphics/Renderer.cpp
-    src/Graphics/ResourceService.cpp
     src/Graphics/Model.cpp
     src/Graphics/Material.cpp
     src/Graphics/Mesh.cpp

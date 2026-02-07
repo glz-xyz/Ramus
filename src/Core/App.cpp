@@ -1,8 +1,8 @@
 #include "ramus/Core/App.hpp"
 #include "ramus/Core/Log.hpp"
 #include "ramus/Core/ServiceLocator.hpp"
+#include "ramus/Resources/ResourceService.hpp"
 #include "ramus/Graphics/Renderer.hpp"
-#include "ramus/Graphics/ResourceService.hpp"
 
 #include <GLFW/glfw3.h>
 #include <spdlog/spdlog.h>
