@@ -1,5 +1,8 @@
 devlog/
 
+# -- Assets ---
+textures/
+
 # --- Build Artifacts ---
 build/
 bin/
