@@ -4,9 +4,6 @@ project(Ramus LANGUAGES CXX C)
 # =================================================================================================
 # Project Settings
 # =================================================================================================
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 # =================================================================================================
@@ -14,9 +11,15 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 # =================================================================================================
 include(FetchContent)
 
-set(ASSIMP_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(ASSIMP_INSTALL OFF CACHE BOOL "" FORCE)
+set(ASSIMP_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(ASSIMP_BUILD_ZLIB ON CACHE BOOL "" FORCE)
+set(ASSIMP_BUILD_ASSIMP_TOOLS OFF CACHE BOOL "" FORCE)
+set(ASSIMP_BUILD_ALL_IMPORTERS_BY_DEFAULT OFF CACHE BOOL "" FORCE)
+set(ASSIMP_BUILD_FBX_IMPORTER ON CACHE BOOL "" FORCE)
+set(ASSIMP_BUILD_GLTF_IMPORTER ON CACHE BOOL "" FORCE)
+set(ASSIMP_BUILD_OBJ_IMPORTER ON CACHE BOOL "" FORCE)
+set(ASSIMP_BUILD_ALL_EXPORTERS_BY_DEFAULT OFF CACHE BOOL "" FORCE)
 set(ASSIMP_BUILD_SAMPLES OFF CACHE BOOL "" FORCE)
 
 set(CATCH_INSTALL_HELPERS OFF CACHE BOOL "" FORCE)
@@ -26,6 +29,8 @@ set(CATCH_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(GLAD_GL_VERSION "4.6" CACHE STRING "" FORCE)
 set(GLAD_GL_PROFILE "Core" CACHE STRING "" FORCE)
 set(GLAD_INSTALL OFF CACHE BOOL "" FORCE)
+
+set(GLM_BUILD_LIBRARY OFF CACHE BOOL "" FORCE)
 
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
@@ -89,7 +94,7 @@ target_link_libraries(RamusEngine
         glm::glm
         spdlog::spdlog
     PRIVATE
-        assimp
+        assimp::assimp
         glfw
         glad_gl_core_46
 )
@@ -98,8 +103,6 @@ target_link_libraries(RamusEngine
 # Ramus Demo/Test Target
 # =================================================================================================
 add_executable(RamusGreenhouse greenhouse/main.cpp)
-
-target_include_directories(RamusGreenhouse PRIVATE include)
 
 target_link_libraries(RamusGreenhouse PRIVATE
     RamusEngine
