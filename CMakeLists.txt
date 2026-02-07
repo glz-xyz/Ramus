@@ -14,6 +14,11 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 # =================================================================================================
 include(FetchContent)
 
+set(ASSIMP_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(ASSIMP_INSTALL OFF CACHE BOOL "" FORCE)
+set(ASSIMP_BUILD_ZLIB ON CACHE BOOL "" FORCE)
+set(ASSIMP_BUILD_SAMPLES OFF CACHE BOOL "" FORCE)
+
 set(CATCH_INSTALL_HELPERS OFF CACHE BOOL "" FORCE)
 set(CATCH_BUILD_TESTING OFF CACHE BOOL "" FORCE)
 set(CATCH_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
@@ -29,6 +34,7 @@ set(GLFW_INSTALL OFF CACHE BOOL "" FORCE)
 
 set(SPDLOG_INSTALL OFF CACHE BOOL "" FORCE)
 
+FetchContent_Declare(assimp GIT_REPOSITORY https://github.com/assimp/assimp.git     GIT_TAG v6.0.4)
 FetchContent_Declare(Catch2 GIT_REPOSITORY https://github.com/catchorg/Catch2.git   GIT_TAG v3.12.0)
 FetchContent_Declare(glad   GIT_REPOSITORY https://github.com/Dav1dde/glad.git      GIT_TAG v2.0.8  GIT_PROGRESS TRUE SOURCE_SUBDIR cmake)
 FetchContent_Declare(glm    GIT_REPOSITORY https://github.com/g-truc/glm.git        GIT_TAG 1.0.3)
@@ -36,7 +42,7 @@ FetchContent_Declare(glfw   GIT_REPOSITORY https://github.com/glfw/glfw.git     
 FetchContent_Declare(imgui  GIT_REPOSITORY https://github.com/ocornut/imgui.git     GIT_TAG v1.92.5)
 FetchContent_Declare(spdlog GIT_REPOSITORY https://github.com/gabime/spdlog.git     GIT_TAG v1.17.0)
 
-FetchContent_MakeAvailable(Catch2 glad glm glfw imgui spdlog)
+FetchContent_MakeAvailable(assimp Catch2 glad glm glfw imgui spdlog)
 
 glad_add_library(glad_gl_core_46 STATIC REPRODUCIBLE LOADER API gl:core=4.6)
 
@@ -60,24 +66,25 @@ target_include_directories(imgui_setup PUBLIC ${imgui_SOURCE_DIR} ${imgui_SOURCE
 # =================================================================================================
 # Ramus Library
 # =================================================================================================
-add_library(ramus_lib STATIC
+add_library(RamusEngine STATIC
     src/App.cpp
     src/AppWindow.cpp
     src/Renderer.cpp
     src/Log.cpp
 )
 
-target_include_directories(ramus_lib 
+target_include_directories(RamusEngine 
     PUBLIC include
     PRIVATE src
 )
 
-target_link_libraries(ramus_lib 
-    PUBLIC 
-        glfw
+target_link_libraries(RamusEngine 
+    PUBLIC
         glm::glm
         spdlog::spdlog
     PRIVATE
+        assimp
+        glfw
         glad_gl_core_46
 )
 
@@ -89,7 +96,7 @@ add_executable(RamusGreenhouse greenhouse/main.cpp)
 target_include_directories(RamusGreenhouse PRIVATE include)
 
 target_link_libraries(RamusGreenhouse PRIVATE
-    ramus_lib
+    RamusEngine
     imgui_setup
 )
 
