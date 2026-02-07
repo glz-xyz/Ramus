@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ramus/AppWindow.hpp"
+#include "ramus/Core/AppWindow.hpp"
 
 #include <string>
 #include <memory>

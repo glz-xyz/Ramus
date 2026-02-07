@@ -1,5 +1,5 @@
-#include "ramus/Renderer.hpp"
-#include "ramus/Log.hpp"
+#include "ramus/Graphics/Renderer.hpp"
+#include "ramus/Core/Log.hpp"
 
 #include <glad/gl.h>
 #include <GLFW/glfw3.h>

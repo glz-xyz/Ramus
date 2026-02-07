@@ -1,6 +1,6 @@
-#include "ramus/App.hpp"
-#include "ramus/Log.hpp"
-#include "ramus/Renderer.hpp"
+#include "ramus/Core/App.hpp"
+#include "ramus/Core/Log.hpp"
+#include "ramus/Graphics/Renderer.hpp"
 
 #include <GLFW/glfw3.h>
 #include <spdlog/spdlog.h>

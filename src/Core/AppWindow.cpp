@@ -1,5 +1,5 @@
-#include "ramus/AppWindow.hpp"
-#include "ramus/Log.hpp"
+#include "ramus/Core/AppWindow.hpp"
+#include "ramus/Core/Log.hpp"
 
 #include <GLFW/glfw3.h>
 
