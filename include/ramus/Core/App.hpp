@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ramus/Core/AppWindow.hpp"
+#include "ramus/Resources/IResourceService.hpp"
 
 #include <string>
 #include <memory>
@@ -27,6 +28,7 @@ namespace ramus
     private:
         Config m_config;
         std::unique_ptr<AppWindow> m_window;
+        std::unique_ptr<IResourceService> m_resourceService;
     };
 
 }
