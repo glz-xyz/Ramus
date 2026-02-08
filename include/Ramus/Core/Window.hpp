@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Ramus/Graphics/GraphicsContext.hpp"
+#include "Ramus/Graphics/RHI/GraphicsContext.hpp"
 
 #include <string>
 #include <memory>

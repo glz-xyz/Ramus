@@ -2,8 +2,8 @@
 
 #include <glad/gl.h>
 
-#include "Ramus/Graphics/Buffer.hpp"
-#include "Ramus/Graphics/GraphicsResource.hpp"
+#include "Ramus/Graphics/RHI/Buffer.hpp"
+#include "Ramus/Graphics/RHI/GraphicsResource.hpp"
 
 namespace ramus::gl
 {

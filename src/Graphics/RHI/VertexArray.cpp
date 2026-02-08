@@ -1,5 +1,5 @@
-#include "Ramus/Graphics/VertexArray.hpp"
-#include "Ramus/Graphics/GraphicsInternal.hpp"
+#include "Ramus/Graphics/RHI/VertexArray.hpp"
+#include "Ramus/Graphics/RHI/GraphicsInternal.hpp"
 
 using namespace ramus::gl;
 

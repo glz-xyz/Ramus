@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Ramus/Graphics/GraphicsResource.hpp"
-#include "Ramus/Graphics/VertexBuffer.hpp"
-#include "Ramus/Graphics/IndexBuffer.hpp"
+#include "Ramus/Graphics/RHI/GraphicsResource.hpp"
+#include "Ramus/Graphics/RHI/VertexBuffer.hpp"
+#include "Ramus/Graphics/RHI/IndexBuffer.hpp"
 
 namespace ramus
 {

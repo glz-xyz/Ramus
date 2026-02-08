@@ -1,4 +1,4 @@
-#include "Ramus/Graphics/GraphicsDevice.hpp"
+#include "Ramus/Graphics/RHI/GraphicsDevice.hpp"
 
 #include <glad/gl.h>
 

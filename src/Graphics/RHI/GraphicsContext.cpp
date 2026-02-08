@@ -1,5 +1,5 @@
-#include "Ramus/Graphics/GraphicsContext.hpp"
-#include "Ramus/Graphics/GraphicsInternal.hpp"
+#include "Ramus/Graphics/RHI/GraphicsContext.hpp"
+#include "Ramus/Graphics/RHI/GraphicsInternal.hpp"
 #include "Ramus/Core/Log.hpp"
 
 #include <GLFW/glfw3.h>

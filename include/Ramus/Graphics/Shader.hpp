@@ -1,5 +1,5 @@
 #pragma once
-#include "Ramus/Graphics/GraphicsResource.hpp"
+#include "Ramus/Graphics/RHI/GraphicsResource.hpp"
 
 namespace ramus
 {

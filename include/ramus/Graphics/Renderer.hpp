@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Ramus/Graphics/GraphicsDevice.hpp"
+#include "Ramus/Graphics/RHI/GraphicsDevice.hpp"
 
 #include <glm/glm.hpp>
 

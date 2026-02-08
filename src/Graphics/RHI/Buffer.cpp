@@ -1,5 +1,5 @@
-#include "Ramus/Graphics/Buffer.hpp"
-#include "Ramus/Graphics/GraphicsInternal.hpp"
+#include "Ramus/Graphics/RHI/Buffer.hpp"
+#include "Ramus/Graphics/RHI/GraphicsInternal.hpp"
 
 using namespace ramus::gl;
 
