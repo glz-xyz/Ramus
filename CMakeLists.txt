@@ -77,14 +77,18 @@ add_library(RamusEngine STATIC
     src/Core/Log.cpp
     src/Core/ServiceLocator.cpp
     src/Resources/ResourceService.cpp
+    src/Resources/ModelLoader.cpp
+    src/Resources/ShaderLoader.cpp
+    src/Resources/TextureLoader.cpp
     src/Graphics/Buffer.cpp
     src/Graphics/GraphicsContext.cpp
     src/Graphics/GraphicsDevice.cpp
-    src/Graphics/Renderer.cpp
-    src/Graphics/Shader.cpp
     src/Graphics/Model.cpp
     src/Graphics/Material.cpp
     src/Graphics/Mesh.cpp
+    src/Graphics/Renderer.cpp
+    src/Graphics/Shader.cpp
+    src/Graphics/Texture.cpp
     src/Graphics/Vertex.cpp
     src/Graphics/VertexArray.cpp
 )
