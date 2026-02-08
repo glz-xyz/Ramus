@@ -2,6 +2,7 @@
 
 #include <glad/gl.h>
 
+#include "Ramus/Graphics/GraphicsTypes.hpp"
 #include "Ramus/Graphics/RHI/Buffer.hpp"
 #include "Ramus/Graphics/RHI/GraphicsResource.hpp"
 
@@ -18,4 +19,46 @@ namespace ramus::gl
 
     template <typename T>
     inline GLuint getHandle(const GraphicsResource<T>& resource) { return toUint(resource.GetHandle()); }
+
+    static GLenum ShaderDataTypeToOpenGL(ramus::ShaderDataType type)
+    {
+        switch (type)
+        {
+            case ramus::ShaderDataType::Float:    return GL_FLOAT;
+            case ramus::ShaderDataType::Float2:   return GL_FLOAT;
+            case ramus::ShaderDataType::Float3:   return GL_FLOAT;
+            case ramus::ShaderDataType::Float4:   return GL_FLOAT;
+            case ramus::ShaderDataType::Mat3:     return GL_FLOAT;
+            case ramus::ShaderDataType::Mat4:     return GL_FLOAT;
+            case ramus::ShaderDataType::Int:      return GL_INT;
+            case ramus::ShaderDataType::Int2:     return GL_INT;
+            case ramus::ShaderDataType::Int3:     return GL_INT;
+            case ramus::ShaderDataType::Int4:     return GL_INT;
+            case ramus::ShaderDataType::Bool:     return GL_BOOL;
+            default: break;
+        }
+
+        return 0;
+    }
+
+    static GLbitfield BufferFlagsToOpenGL(BufferFlags flags) 
+    {
+        GLbitfield glFlags = 0;
+        if ((uint32_t)flags & (uint32_t)BufferFlags::MapRead)  glFlags |= GL_MAP_READ_BIT;
+        if ((uint32_t)flags & (uint32_t)BufferFlags::MapWrite) glFlags |= GL_MAP_WRITE_BIT;
+        if ((uint32_t)flags & (uint32_t)BufferFlags::Dynamic)  glFlags |= GL_DYNAMIC_STORAGE_BIT;
+        if ((uint32_t)flags & (uint32_t)BufferFlags::Client)   glFlags |= GL_CLIENT_STORAGE_BIT;
+        return glFlags;
+    }
+
+    static GLenum BufferUsageToOpenGL(BufferUsage usage)
+    {
+        switch (usage)
+        {
+            case BufferUsage::Static:  return GL_STATIC_DRAW;
+            case BufferUsage::Dynamic: return GL_DYNAMIC_DRAW;
+            case BufferUsage::Stream:  return GL_STREAM_DRAW;
+        }
+        return GL_STATIC_DRAW;
+    }
 }

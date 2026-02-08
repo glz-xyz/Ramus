@@ -4,6 +4,9 @@
 #include "Ramus/Graphics/RHI/VertexBuffer.hpp"
 #include "Ramus/Graphics/RHI/IndexBuffer.hpp"
 
+#include <memory>
+#include <vector>
+
 namespace ramus
 {
 
@@ -13,11 +16,20 @@ namespace ramus
         VertexArray();
         ~VertexArray();
 
-        void BindVertexBuffer(const VertexBuffer& vbo, uint32_t bindingIndex, int32_t offset, int32_t stride);
-        void BindIndexBuffer(const IndexBuffer& ibo);
+        VertexArray(const VertexArray&) = delete;
+        VertexArray& operator=(const VertexArray&) = delete;
+
+        void AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vbo);
+        void SetIndexBuffer(const std::shared_ptr<IndexBuffer>& ibo);
 
         void Bind() const;
         void Unbind() const;
+
+    private:
+        uint32_t m_vboIdx = 0;
+
+        std::vector<std::shared_ptr<VertexBuffer>> m_vbos;
+        std::shared_ptr<IndexBuffer> m_ibo;
     };
 
 }

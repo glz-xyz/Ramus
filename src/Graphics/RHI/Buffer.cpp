@@ -6,10 +6,10 @@ using namespace ramus::gl;
 namespace ramus
 {
 
-    Buffer::Buffer(size_t size, const void* data, uint32_t flags)
+    Buffer::Buffer(size_t size, const void* data, BufferFlags flags)
     {
         glCreateBuffers(1, &m_handle);
-        glNamedBufferStorage(m_handle, toSize(size), data, toBitfield(flags));
+        glNamedBufferStorage(m_handle, toSize(size), data, BufferFlagsToOpenGL(flags));
     }
 
 
