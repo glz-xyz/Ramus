@@ -109,7 +109,7 @@ target_link_libraries(RamusEngine
 )
 
 # =================================================================================================
-# Ramus Demo/Test Target
+# Ramus Greenhouse (Demo App)
 # =================================================================================================
 add_executable(RamusGreenhouse greenhouse/main.cpp)
 
@@ -118,3 +118,15 @@ target_link_libraries(RamusGreenhouse PRIVATE
     imgui_setup
 )
 
+# =================================================================================================
+# Ramus Greenhouse Post-Build
+# =================================================================================================
+set(ASSETS_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/assets")
+
+add_custom_command(
+    TARGET RamusGreenhouse POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${ASSETS_SOURCE_DIR}"
+        "$<TARGET_FILE_DIR:RamusGreenhouse>/assets"
+    COMMENT "Moving assets to the same folder as the executable..."
+)
