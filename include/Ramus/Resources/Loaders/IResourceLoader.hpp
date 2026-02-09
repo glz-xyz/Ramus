@@ -7,11 +7,11 @@ namespace ramus
 {
 
     template <typename T>
-    class ResourceLoader
+    class IResourceLoader
     {
     public:
-        ResourceLoader() = default;
-        virtual ~ResourceLoader() = default;
+        IResourceLoader() = default;
+        virtual ~IResourceLoader() = default;
 
         virtual std::shared_ptr<T> Load(const std::string& path) = 0;
         

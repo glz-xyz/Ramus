@@ -1,4 +1,4 @@
-#include "Ramus/Resources/ModelLoader.hpp"
+#include "Ramus/Resources/Loaders/ModelLoader.hpp"
 #include "Ramus/Core/Log.hpp"
 #include "Ramus/Graphics/Mesh.hpp"
 #include "Ramus/Graphics/Vertex.hpp"

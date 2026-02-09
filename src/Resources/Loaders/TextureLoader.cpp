@@ -1,4 +1,4 @@
-#include "Ramus/Resources/TextureLoader.hpp"
+#include "Ramus/Resources/Loaders/TextureLoader.hpp"
 
 #include <string>
 

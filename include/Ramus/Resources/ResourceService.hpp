@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Ramus/Resources/IResourceService.hpp"
-#include "Ramus/Resources/ResourceLoader.hpp"
+#include "Ramus/Resources/Loaders/IResourceLoader.hpp"
 
 #include <unordered_map>
 
@@ -26,11 +26,11 @@ namespace ramus
 
     private:
         template<typename T>
-        std::shared_ptr<T> GetResource(const std::string& path, ResourceCache<T>& cache, ResourceLoader<T>& loader);
+        std::shared_ptr<T> GetResource(const std::string& path, ResourceCache<T>& cache, IResourceLoader<T>& loader);
 
-        std::unique_ptr<ResourceLoader<Model>> m_modelLoader;
-        std::unique_ptr<ResourceLoader<Texture>> m_textureLoader;
-        std::unique_ptr<ResourceLoader<Shader>> m_shaderLoader;
+        std::unique_ptr<IResourceLoader<Model>> m_modelLoader;
+        std::unique_ptr<IResourceLoader<Texture>> m_textureLoader;
+        std::unique_ptr<IResourceLoader<Shader>> m_shaderLoader;
 
         ResourceCache<Model> m_modelCache;
         ResourceCache<Texture> m_textureCache;

@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Ramus/Resources/ResourceLoader.hpp"
+#include "Ramus/Resources/Loaders/IResourceLoader.hpp"
 #include "Ramus/Graphics/Shader.hpp"
 
 namespace ramus
 {
 
-    class ShaderLoader : public ResourceLoader<Shader>
+    class ShaderLoader : public IResourceLoader<Shader>
     {
     public: 
         ShaderLoader() = default;

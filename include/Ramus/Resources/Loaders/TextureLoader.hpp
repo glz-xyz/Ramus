@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Ramus/Resources/ResourceLoader.hpp"
+#include "Ramus/Resources/Loaders/IResourceLoader.hpp"
 #include "Ramus/Graphics/Texture.hpp"
 
 namespace ramus
 {
 
-    class TextureLoader : public ResourceLoader<Texture>
+    class TextureLoader : public IResourceLoader<Texture>
     {
     public: 
         TextureLoader() = default;

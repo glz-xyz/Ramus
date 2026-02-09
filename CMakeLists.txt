@@ -95,9 +95,9 @@ add_library(RamusEngine STATIC
     src/Graphics/RHI/GraphicsDevice.cpp
     src/Graphics/RHI/VertexArray.cpp
     src/Resources/ResourceService.cpp
-    src/Resources/ModelLoader.cpp
-    src/Resources/ShaderLoader.cpp
-    src/Resources/TextureLoader.cpp
+    src/Resources/Loaders/ModelLoader.cpp
+    src/Resources/Loaders/ShaderLoader.cpp
+    src/Resources/Loaders/TextureLoader.cpp
 )
 
 target_include_directories(RamusEngine 

@@ -1,7 +1,7 @@
 #include "Ramus/Resources/ResourceService.hpp"
-#include "Ramus/Resources/ModelLoader.hpp"
-#include "Ramus/Resources/TextureLoader.hpp"
-#include "Ramus/Resources/ShaderLoader.hpp"
+#include "Ramus/Resources/Loaders/ModelLoader.hpp"
+#include "Ramus/Resources/Loaders/TextureLoader.hpp"
+#include "Ramus/Resources/Loaders/ShaderLoader.hpp"
 
 namespace ramus
 {
@@ -14,7 +14,7 @@ namespace ramus
     }
 
     template <typename T>
-    std::shared_ptr<T> ResourceService::GetResource(const std::string& path, ResourceCache<T>& cache, ResourceLoader<T>& loader) 
+    std::shared_ptr<T> ResourceService::GetResource(const std::string& path, ResourceCache<T>& cache, IResourceLoader<T>& loader) 
     {
         auto it = cache.find(path);
         if (it != cache.end()) return it->second;

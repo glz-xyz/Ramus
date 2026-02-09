@@ -1,6 +1,5 @@
 #include "Ramus/Core/App.hpp"
 #include "Ramus/Core/ServiceLocator.hpp"
-#include "Ramus/Resources/ResourceLoader.hpp"
 
 int main() 
 {

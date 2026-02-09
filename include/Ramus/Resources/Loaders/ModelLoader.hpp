@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Ramus/Resources/ResourceLoader.hpp"
+#include "Ramus/Resources/Loaders/IResourceLoader.hpp"
 #include "Ramus/Graphics/Model.hpp"
 #include "Ramus/Graphics/Vertex.hpp"
 
@@ -14,7 +14,7 @@ struct aiNode;
 namespace ramus
 {
 
-    class ModelLoader : public ResourceLoader<Model>
+    class ModelLoader : public IResourceLoader<Model>
     {
     public: 
         ModelLoader() = default;

@@ -1,4 +1,4 @@
-#include "Ramus/Resources/ShaderLoader.hpp"
+#include "Ramus/Resources/Loaders/ShaderLoader.hpp"
 
 #include <string>
 
