@@ -1,0 +1,29 @@
+name: Linux Build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Cache Dependencies
+        uses: actions/cache@v4
+        with:
+          path: build/_deps
+          key: linux-fetch-${{ hashFiles('**/CMakeLists.txt') }}
+
+      - name: Install Linux Deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ninja-build libgl1-mesa-dev xorg-dev
+
+      - name: Setup Ninja/CMake
+        uses: lukka/get-cmake@latest
+        
+      - name: Configure and Build
+        run: |
+          cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DGLFW_BUILD_WAYLAND=OFF
+          cmake --build build

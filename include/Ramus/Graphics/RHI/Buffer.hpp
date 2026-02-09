@@ -3,6 +3,8 @@
 #include "Ramus/Graphics/RHI/GraphicsResource.hpp"
 #include "Ramus/Graphics/GraphicsTypes.hpp"
 
+#include <cstddef>
+
 namespace ramus
 {
 
