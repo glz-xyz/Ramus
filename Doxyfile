@@ -1,0 +1,11 @@
+PROJECT_NAME           = "Ramus"
+OUTPUT_DIRECTORY       = build
+GENERATE_LATEX         = NO
+GENERATE_XML           = YES
+RECURSIVE              = YES
+
+INPUT                  = include src
+
+FILE_PATTERNS          = *.h *.hpp *.cpp
+
+XML_OUTPUT             = xml
