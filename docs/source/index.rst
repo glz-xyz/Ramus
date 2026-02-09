@@ -5,6 +5,9 @@ Welcome to Ramus Engine
    :maxdepth: 2
    :caption: Contents:
 
+   api/library_root
+   developer_notes
+
 API Reference
 =============
 .. breatheinterface:: 
