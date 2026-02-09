@@ -17,7 +17,6 @@ exhale_args = {
     "rootFileName":          "library_root.rst",
     "rootFileTitle":         "Library API",
     "doxygenStripFromPath":  "..",
-    "headingLevel":          3,
     "createTreeView":        True,
     "exhaleExecutesDoxygen": False,
 }
