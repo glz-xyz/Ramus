@@ -5,12 +5,12 @@ build:
   tools:
     python: "3.10"
   jobs:
-    pre_build:
+    post_install:
       - doxygen Doxyfile
+
+sphinx:
+  configuration: docs/source/conf.py
 
 python:
   install:
     - requirements: docs/requirements.txt
-
-sphinx:
-  configuration: docs/source/conf.py
