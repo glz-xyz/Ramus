@@ -1,22 +1,14 @@
 #pragma once
 
-struct GLFWwindow;
-
-namespace ramus 
+namespace ramus
 {
-
     class GraphicsContext
     {
     public:
-        GraphicsContext(struct GLFWwindow* nativeHandle);
+        virtual ~GraphicsContext() = default;
 
-        void MakeCurrent();
-        void SwapBuffers();
-
-        void SetVSync(const bool enabled);
-
-    private:
-        GLFWwindow* m_nativeWindow;
+        virtual void Init() = 0;
+        virtual void SwapBuffers() = 0;
+        virtual void SetVSync(bool enabled) = 0;
     };
-
 }

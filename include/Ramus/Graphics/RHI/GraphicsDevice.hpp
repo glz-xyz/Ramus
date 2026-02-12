@@ -1,17 +1,21 @@
 #pragma once
 
+#include "Ramus/Graphics/RHI/GraphicsContext.hpp"
+
+#include <memory>
 #include <glm/glm.hpp>
 
-namespace ramus 
+namespace ramus
 {
-
     class GraphicsDevice
     {
     public:
-        GraphicsDevice() = default;
+        virtual ~GraphicsDevice() = default;
 
-        void SetClearColor(const glm::vec4& color);
-        void Clear();
+        virtual void Init() = 0;
+        
+        virtual void SetClearColor(const glm::vec4& clearColor) = 0;
+        virtual void Clear() = 0;
+        virtual void Present() = 0;
     };
-
 }
