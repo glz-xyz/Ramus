@@ -1,0 +1,7 @@
+namespace ramus 
+{
+    class ShaderBase
+    {
+        
+    };
+}

@@ -8,7 +8,9 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # =================================================================================================
 # Project Settings
 # =================================================================================================
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/Build/bin")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/Build/bin")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/Build/lib")
 
 # =================================================================================================
 # External Dependencies (Auto)
@@ -51,8 +53,8 @@ FetchContent_MakeAvailable(assimp Catch2 glm glfw imgui spdlog)
 # =================================================================================================
 # External Dependencies (Manual)
 # =================================================================================================
-set(GLAD_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/deps/glad/src/gl.c")
-set(GLAD_INCLUDE "${CMAKE_CURRENT_SOURCE_DIR}/deps/glad/include")
+set(GLAD_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/glad/src/gl.c")
+set(GLAD_INCLUDE "${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/glad/include")
 
 add_library(glad STATIC ${GLAD_SOURCE})
 
@@ -79,40 +81,40 @@ target_include_directories(imgui_setup PUBLIC ${imgui_SOURCE_DIR} ${imgui_SOURCE
 # Ramus Library
 # =================================================================================================
 add_library(RamusEngine STATIC
-    src/Core/Engine/Engine.cpp
-    src/Core/Engine/Input.cpp
-    src/Core/Engine/Window.cpp
-    src/Core/Services/Logger.cpp
-    src/Assets/Asset.cpp
-    src/Assets/AssetManager.cpp
-    src/Assets/Material.cpp
-    src/Assets/Model.cpp
-    src/Assets/Texture.cpp
-    src/Assets/Loaders/MaterialLoader.cpp
-    src/Assets/Loaders/ModelLoader.cpp
-    src/Assets/Loaders/TextureLoader.cpp
-    src/Graphics/Renderer/Renderer.cpp
-    src/Graphics/RHI/OpenGL/Buffers/OpenGLBuffer.cpp
-    src/Graphics/RHI/OpenGL/Buffers/OpenGLIndexBuffer.cpp
-    src/Graphics/RHI/OpenGL/Buffers/OpenGLStorageBuffer.cpp
-    src/Graphics/RHI/OpenGL/Buffers/OpenGLUniformBuffer.cpp
-    src/Graphics/RHI/OpenGL/Buffers/OpenGLVertexArray.cpp
-    src/Graphics/RHI/OpenGL/Buffers/OpenGLVertexBuffer.cpp
-    src/Graphics/RHI/OpenGL/OpenGLContext.cpp
-    src/Graphics/RHI/OpenGL/OpenGLDevice.cpp
-    src/Graphics/RHI/OpenGL/OpenGLResource.cpp
-    src/Graphics/RHI/OpenGL/OpenGLShader.cpp
-    src/Graphics/RHI/OpenGL/OpenGLTexture.cpp
-    src/Graphics/RHI/OpenGL/OpenGLUtils.cpp
-    src/Graphics/Geometry/Mesh.cpp
+    Source/src/Core/Engine/Engine.cpp
+    Source/src/Core/Engine/Input.cpp
+    Source/src/Core/Engine/Window.cpp
+    Source/src/Core/Services/Logger.cpp
+    Source/src/Assets/Asset.cpp
+    Source/src/Assets/AssetManager.cpp
+    Source/src/Assets/Material.cpp
+    Source/src/Assets/Model.cpp
+    Source/src/Assets/Texture.cpp
+    Source/src/Assets/Loaders/MaterialLoader.cpp
+    Source/src/Assets/Loaders/ModelLoader.cpp
+    Source/src/Assets/Loaders/TextureLoader.cpp
+    Source/src/Graphics/Renderer/Renderer.cpp
+    Source/src/Graphics/Device/OpenGL/OpenGLBuffer.cpp
+    Source/src/Graphics/Device/OpenGL/OpenGLIndexBuffer.cpp
+    Source/src/Graphics/Device/OpenGL/OpenGLStorageBuffer.cpp
+    Source/src/Graphics/Device/OpenGL/OpenGLUniformBuffer.cpp
+    Source/src/Graphics/Device/OpenGL/OpenGLVertexArray.cpp
+    Source/src/Graphics/Device/OpenGL/OpenGLVertexBuffer.cpp
+    Source/src/Graphics/Device/OpenGL/OpenGLContext.cpp
+    Source/src/Graphics/Device/OpenGL/OpenGLDevice.cpp
+    Source/src/Graphics/Device/OpenGL/OpenGLMesh.cpp
+    Source/src/Graphics/Device/OpenGL/OpenGLResource.cpp
+    Source/src/Graphics/Device/OpenGL/OpenGLShader.cpp
+    Source/src/Graphics/Device/OpenGL/OpenGLTexture.cpp
+    Source/src/Graphics/Device/OpenGL/OpenGLUtils.cpp
+    Source/src/Graphics/Geometry/Mesh.cpp
 )
 
 target_include_directories(RamusEngine 
     PUBLIC 
-        "${CMAKE_CURRENT_SOURCE_DIR}/include"
-        include/Ramus/Graphics/RHI
+        "${CMAKE_CURRENT_SOURCE_DIR}/Source/include"
     PRIVATE 
-        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+        "${CMAKE_CURRENT_SOURCE_DIR}/Source/src"
 )
 
 target_link_libraries(RamusEngine 
@@ -129,8 +131,8 @@ target_link_libraries(RamusEngine
 # Ramus Greenhouse (Demo App)
 # =================================================================================================
 add_executable(RamusGreenhouse 
-    src/Core/Engine/EngineMain.cpp
-    greenhouse/GreenhouseApp.cpp)
+    Source/src/Core/Engine/EngineMain.cpp
+    Samples/GreenhouseApp.cpp)
 
 target_link_libraries(RamusGreenhouse PRIVATE
     RamusEngine
@@ -140,12 +142,12 @@ target_link_libraries(RamusGreenhouse PRIVATE
 # =================================================================================================
 # Ramus Greenhouse Post-Build
 # =================================================================================================
-set(ASSETS_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/assets")
+set(ASSETS_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Assets")
 
 add_custom_command(
     TARGET RamusGreenhouse POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         "${ASSETS_SOURCE_DIR}"
-        "$<TARGET_FILE_DIR:RamusGreenhouse>/assets"
+        "$<TARGET_FILE_DIR:RamusGreenhouse>/Assets"
     COMMENT "Copying assets to build directory..."
 )
