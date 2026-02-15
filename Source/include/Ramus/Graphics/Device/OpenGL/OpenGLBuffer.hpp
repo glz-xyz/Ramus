@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Ramus/Graphics/Device/OpenGL/OpenGLResource.hpp"
+#include "Ramus/Graphics/Device/OpenGL/OpenGLHandle.hpp"
 
 #include <glad/gl.h>
 
@@ -51,7 +51,7 @@ namespace ramus
         return GL_STATIC_DRAW;
     }
 
-    class OpenGLBuffer : public OpenGLResource<OpenGLBuffer>
+    class OpenGLBuffer
     {
     public:
         OpenGLBuffer(size_t size, const void* data, BufferFlags flags);
@@ -59,6 +59,11 @@ namespace ramus
 
         OpenGLBuffer(const OpenGLBuffer&) = delete;
         OpenGLBuffer& operator=(const OpenGLBuffer&) = delete;
+
+        uint32_t GetHandle() const { return m_handle.Get(); }
+
+    protected:
+        OpenGLHandle<BufferDeleter> m_handle;
     };
 
 }

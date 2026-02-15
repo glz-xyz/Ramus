@@ -11,8 +11,6 @@ namespace ramus
             : OpenGLBuffer(size, data, flags) 
         {
         }
-
-        ~OpenGLIndexBuffer() = default;
     };
 
 }

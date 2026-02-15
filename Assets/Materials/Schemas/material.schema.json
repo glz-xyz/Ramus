@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Ramus Material Schema",
+  "type": "object",
+  "properties": 
+  {
+    "name": { "type": "string" },
+    "shader": 
+    {
+      "type": "object",
+      "properties": 
+      {
+        "vertex": { "type": "string" },
+        "fragment": { "type": "string" }
+      },
+      "required": ["vertex", "fragment"]
+    },
+    "samplers": 
+    {
+        "type": "array",
+        "items": 
+        {
+          "type": "object",
+          "properties": 
+          {
+            "binding": { "type": "string" },
+            "texture": { "type": ["string", "null"] }
+          },
+          "required": ["binding"]
+        }
+    }
+  },
+  "required": ["name", "shader"]
+}

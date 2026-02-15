@@ -1,6 +1,9 @@
 #include "Ramus/Assets/Loaders/ModelLoader.hpp"
+#include "Ramus/Assets/Model.hpp"
+#include "Ramus/Assets/AssetManager.hpp"
 #include "Ramus/Core/Services/Logger.hpp"
 #include "Ramus/Graphics/Geometry/Mesh.hpp"
+#include "Ramus/Graphics/Device/GraphicsDevice.hpp"
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
@@ -11,14 +14,19 @@
 
 namespace ramus
 {
-    ModelLoader::ModelLoader(GraphicsDevice* graphicsDevice) : 
-        m_graphicsDevice(graphicsDevice)
+    ModelLoader::ModelLoader()
     {
-        assert(m_graphicsDevice != nullptr && "Cannot initialize ModelLoader without a Graphics Device!");
+        m_supportedExtensions = { ".gltf" };
     }
 
-    std::shared_ptr<Model> ModelLoader::Load(const std::string& path)
+    ModelLoader::~ModelLoader()
     {
+    }
+
+    std::shared_ptr<Model> ModelLoader::Load(const std::string& path, AssetLoadContext& loadContext)
+    {
+        m_currentLoadContext = &loadContext;
+
         Assimp::Importer importer;
         const aiScene* scene = importer.ReadFile(path
             , aiProcess_Triangulate
@@ -65,7 +73,7 @@ namespace ramus
         geoMesh->vertices = ExtractVertices(mesh);
         geoMesh->indices = ExtractIndices(mesh);
 
-        auto gpuMesh = m_graphicsDevice->CreateResource(*geoMesh);
+        auto gpuMesh = m_currentLoadContext->device->CreateResource(*geoMesh);
 
         return { std::move(geoMesh), std::move(gpuMesh) };
     }
@@ -81,10 +89,10 @@ namespace ramus
 
             vertex.position = { mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z };
 
-            if (mesh->HasNormals())
-                vertex.normal = { mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z };
+            //if (mesh->HasNormals())
+            //    vertex.normal = { mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z };
 
-            vertex.texCoords = mesh->mTextureCoords[0] 
+            vertex.texCoord = mesh->mTextureCoords[0] 
                 ? glm::vec2(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y) 
                 : glm::vec2(0.0f);
 

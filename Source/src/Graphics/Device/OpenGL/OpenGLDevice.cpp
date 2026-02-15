@@ -2,6 +2,8 @@
 
 #include "Ramus/Graphics/Device/OpenGL/OpenGLDevice.hpp"
 #include "Ramus/Graphics/Device/OpenGL/OpenGLMesh.hpp"
+#include "Ramus/Graphics/Device/OpenGL/OpenGLShader.hpp"
+#include "Ramus/Graphics/Device/OpenGL/OpenGLShaderProgram.hpp"
 #include "Ramus/Core/Services/Logger.hpp"
 
 #include <glm/glm.hpp>
@@ -28,7 +30,6 @@ namespace ramus
 
     void OpenGLDevice::Init()
     {
-        // Enable modern OpenGL 4.6 features by default
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LESS);
 
@@ -43,6 +44,9 @@ namespace ramus
 
         // Set VSync through the context
         //m_context->SetVSync(settings.vSyncEnabled);
+
+        // Enable modern OpenGL 4.6 features by default
+        // ...
     }
 
     void OpenGLDevice::SetClearColor(const glm::vec4& clearColor)
@@ -63,6 +67,13 @@ namespace ramus
     std::unique_ptr<DeviceResource> OpenGLDevice::CreateResource(const Mesh& mesh)
     {
         return std::make_unique<OpenGLMesh>(mesh);
+    }
+
+    std::unique_ptr<ShaderProgramBase> OpenGLDevice::CreateShaderProgram(const std::string& vertexShaderSrc, const std::string& fragmentShaderSrc)
+    {
+        auto vs = std::make_shared<OpenGLShader>(ShaderStage::Vertex, vertexShaderSrc);
+        auto fs = std::make_shared<OpenGLShader>(ShaderStage::Fragment, fragmentShaderSrc);
+        return std::make_unique<OpenGLShaderProgram>(vs, fs);
     }
 
     void OpenGLDevice::BindGeometry(DeviceResource* resource)

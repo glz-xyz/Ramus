@@ -1,12 +1,10 @@
 #pragma once
 
+#include "Ramus/Graphics/Device/GraphicsDevice.hpp"
 #include "Ramus/Assets/Material.hpp"
 #include "Ramus/Assets/Model.hpp"
-#include "Ramus/Graphics/Device/GraphicsDevice.hpp"
 
 #include <glm/glm.hpp>
-
-#include <memory>
 
 namespace ramus
 {
@@ -19,7 +17,7 @@ namespace ramus
         void Init();
 
         void BeginFrame();
-        void Render(const Model& model);
+        void Render(const Model& model, const Material& material, const glm::mat4& transform);
         void EndFrame();
 
     private:

@@ -1,70 +1,39 @@
 #pragma once
 
-#include "Ramus/Assets/Loaders/MaterialLoader.hpp"
-#include "Ramus/Assets/Loaders/ModelLoader.hpp"
-#include "Ramus/Assets/Loaders/TextureLoader.hpp"
-#include "Ramus/Graphics/Device/GraphicsDevice.hpp"
+#include "Ramus/Assets/AssetLoadContext.hpp"
 
-#include <unordered_map>
+#include "Ramus/Assets/Material.hpp"
+#include "Ramus/Assets/Model.hpp"
+#include "Ramus/Assets/Texture.hpp"
+
+#include "Ramus/Utils/FileUtils.hpp"
+
+//#include "Ramus/Assets/Loaders/MaterialLoader.hpp"
+//#include "Ramus/Assets/Loaders/ModelLoader.hpp"
+//#include "Ramus/Assets/Loaders/TextureLoader.hpp"
+
+#include <string>
 #include <memory>
-
-/*
-#include "Ramus/Assets/IResourceService.hpp"
-#include "Ramus/Assets/Loaders/AssetLoader.hpp"
-
 #include <unordered_map>
-
-namespace ramus 
-{
-    template<typename T>
-    using ResourceCache = std::unordered_map<std::string, std::shared_ptr<T>>;
-    
-    class Model;
-    class Texture;
-    class Shader;
-
-    class ResourceService : public IResourceService 
-    {
-    public:
-        ResourceService();
-        ~ResourceService() override = default;
-
-        std::shared_ptr<Model> GetModel(const std::string& modelPath) override ;
-        std::shared_ptr<Texture> GetTexture(const std::string& texturePath) override;
-        std::shared_ptr<Shader> GetShader(const std::string& shaderPath) override;
-
-    private:
-        template<typename T>
-        std::shared_ptr<T> GetResource(const std::string& path, ResourceCache<T>& cache, AssetLoader<T>& loader);
-
-        std::unique_ptr<AssetLoader<Model>> m_modelLoader;
-        std::unique_ptr<AssetLoader<Texture>> m_textureLoader;
-        std::unique_ptr<AssetLoader<Shader>> m_shaderLoader;
-
-        ResourceCache<Model> m_modelCache;
-        ResourceCache<Texture> m_textureCache;
-        ResourceCache<Shader> m_shaderCache;
-    };
-
-}
-*/
 
 namespace ramus
 {
-    template<typename T>
-    using AssetCache = std::unordered_map<std::string, std::shared_ptr<T>>;
+    class MaterialLoader;
+    class ModelLoader;
+    class TextureLoader;
 
-    class Material;
-    class Model;
-    class Texture;
-    class AssetManager
+    class AssetManager final
     {
     public:
-        AssetManager(GraphicsDevice* device);
+        template <typename TAsset> 
+        using AssetCache = std::unordered_map<std::string, std::shared_ptr<TAsset>>;
 
-        std::shared_ptr<Material> GetMaterial(const std::string& shaderPath);
-        std::shared_ptr<Model> GetModel(const std::string& modelPath);
-        std::shared_ptr<Texture> GetTexture(const std::string& texturePath);
+        explicit AssetManager(GraphicsDevice* device);
+        ~AssetManager();
+
+        std::shared_ptr<Material> LoadMaterial(const std::string& materialPath);
+        std::shared_ptr<Model> LoadModel(const std::string& modelPath);
+        std::shared_ptr<Texture> LoadTexture(const std::string& texturePath);
 
     private:
         GraphicsDevice* m_graphicsDevice;
@@ -77,7 +46,44 @@ namespace ramus
         AssetCache<Model> m_modelCache;
         AssetCache<Texture> m_textureCache;
 
-        template<typename T>
-        std::shared_ptr<T> GetAsset(const std::string& path, AssetCache<T>& cache, AssetLoader<T>& loader);
+        AssetLoadContext m_loadContext;
+        AssetLoadContext& GetLoadContext() { return m_loadContext; }
+
+        template<typename TAsset, typename TLoader>
+        std::shared_ptr<TAsset> LoadInternal(const std::string& path, TLoader& loader, AssetCache<TAsset>& cache)
+        {
+            const char* assetType = TAsset::StaticTypeName();
+
+            std::string cleanedPath = ramus::GetExecutableDirectory().string() + "/" + ramus::ResolvePath(path);
+            Logger::GetAssetLogger()->info("Cleaned path: {}", cleanedPath);
+
+            if (!loader.IsValidAssetPath(cleanedPath)) 
+            {
+                std::string ext = std::filesystem::path(cleanedPath).extension().string();
+                Logger::GetAssetLogger()->error("Unsupported extension '{}' for {} asset: {}", ext, assetType, path);
+                return nullptr;
+            }
+
+            auto it = cache.find(cleanedPath);
+            if (it != cache.end()) 
+            {
+                Logger::GetAssetLogger()->trace("[{}] Cache Hit: {}", assetType, cleanedPath);
+                return it->second;
+            }
+
+            auto asset = loader.Load(cleanedPath, GetLoadContext());
+            if (asset) 
+            {
+                Logger::GetAssetLogger()->info("[{}] Loaded successfully: {}", assetType, cleanedPath);
+                cache[cleanedPath] = asset;
+            } 
+            else 
+            {
+                Logger::GetAssetLogger()->error("[{}] Failed to load: {}", assetType, cleanedPath);
+            }
+
+            return asset;
+        }
     };
+
 }

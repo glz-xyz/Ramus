@@ -1,0 +1,15 @@
+{
+  "name": "UncutGrass",
+  "shader": 
+  {
+    "vertex": "Assets/Shaders/Library/TexturedQuad.vert",
+    "fragment": "Assets/Shaders/Library/TexturedQuad.frag"
+  },
+  "samplers": 
+  [
+    {
+      "binding": "u_diffuse",
+      "texture": "Textures/uncut_grass_2k_basecolor.png"
+    }
+  ]
+}

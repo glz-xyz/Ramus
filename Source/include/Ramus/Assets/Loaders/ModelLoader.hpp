@@ -14,14 +14,13 @@ struct aiNode;
 
 namespace ramus
 {
-
     class ModelLoader : public AssetLoader<Model>
     {
     public: 
-        ModelLoader(GraphicsDevice* graphicsDevice);
-        ~ModelLoader() = default;
+        ModelLoader();
+        ~ModelLoader();
         
-        std::shared_ptr<Model> Load(const std::string& path) override;
+        std::shared_ptr<Model> Load(const std::string& path, AssetLoadContext& loadContext) override;
 
     private:
         void ProcessNode(aiNode* node, const aiScene* scene, Model& model);
@@ -29,8 +28,8 @@ namespace ramus
         
         std::vector<Vertex> ExtractVertices(aiMesh* mesh);
         std::vector<uint32_t> ExtractIndices(aiMesh* mesh);
-        
-        GraphicsDevice* m_graphicsDevice;
+
+        AssetLoadContext* m_currentLoadContext = nullptr; // Only valid during Load()
     };
 
 }

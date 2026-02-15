@@ -46,9 +46,20 @@ FetchContent_Declare(Catch2 GIT_REPOSITORY https://github.com/catchorg/Catch2.gi
 FetchContent_Declare(glm    GIT_REPOSITORY https://github.com/g-truc/glm.git        GIT_TAG 1.0.3)
 FetchContent_Declare(glfw   GIT_REPOSITORY https://github.com/glfw/glfw.git         GIT_TAG 3.4)
 FetchContent_Declare(imgui  GIT_REPOSITORY https://github.com/ocornut/imgui.git     GIT_TAG v1.92.5)
+FetchContent_Declare(json   GIT_REPOSITORY https://github.com/nlohmann/json.git     GIT_TAG v3.12.0)
 FetchContent_Declare(spdlog GIT_REPOSITORY https://github.com/gabime/spdlog.git     GIT_TAG v1.17.0)
+FetchContent_Declare(stb    GIT_REPOSITORY https://github.com/nothings/stb.git      master)
 
-FetchContent_MakeAvailable(assimp Catch2 glm glfw imgui spdlog)
+FetchContent_MakeAvailable(assimp Catch2 glm glfw imgui json spdlog)
+
+# Note: stb has no CMakeLists.txt
+FetchContent_GetProperties(stb)
+if(NOT stb_POPULATED)
+    FetchContent_Populate(stb)
+    
+    add_library(stb INTERFACE)
+    target_include_directories(stb INTERFACE ${stb_SOURCE_DIR})
+endif()
 
 # =================================================================================================
 # External Dependencies (Manual)
@@ -105,6 +116,7 @@ add_library(RamusEngine STATIC
     Source/src/Graphics/Device/OpenGL/OpenGLMesh.cpp
     Source/src/Graphics/Device/OpenGL/OpenGLResource.cpp
     Source/src/Graphics/Device/OpenGL/OpenGLShader.cpp
+    Source/src/Graphics/Device/OpenGL/OpenGLShaderProgram.cpp
     Source/src/Graphics/Device/OpenGL/OpenGLTexture.cpp
     Source/src/Graphics/Device/OpenGL/OpenGLUtils.cpp
     Source/src/Graphics/Geometry/Mesh.cpp
@@ -122,17 +134,19 @@ target_link_libraries(RamusEngine
         glm::glm
         spdlog::spdlog
         glad
+        nlohmann_json::nlohmann_json
     PRIVATE
         assimp::assimp
         glfw
+        stb
 )
 
 # =================================================================================================
 # Ramus Greenhouse (Demo App)
 # =================================================================================================
 add_executable(RamusGreenhouse 
-    Source/src/Core/Engine/EngineMain.cpp
-    Samples/GreenhouseApp.cpp)
+    "${CMAKE_SOURCE_DIR}/Source/src/Core/Engine/EngineMain.cpp"
+    "${CMAKE_SOURCE_DIR}/Samples/Greenhouse/GreenhouseApp.cpp")
 
 target_link_libraries(RamusGreenhouse PRIVATE
     RamusEngine
@@ -142,12 +156,18 @@ target_link_libraries(RamusGreenhouse PRIVATE
 # =================================================================================================
 # Ramus Greenhouse Post-Build
 # =================================================================================================
-set(ASSETS_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Assets")
+add_custom_command(
+    TARGET RamusGreenhouse POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_SOURCE_DIR}/Assets"
+        "$<TARGET_FILE_DIR:RamusGreenhouse>/Assets" #[TODO] Assets/Engine/
+    COMMENT "Deploying Ramus Engine assets..."
+)
 
 add_custom_command(
     TARGET RamusGreenhouse POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
-        "${ASSETS_SOURCE_DIR}"
-        "$<TARGET_FILE_DIR:RamusGreenhouse>/Assets"
-    COMMENT "Copying assets to build directory..."
+        "${CMAKE_SOURCE_DIR}/Samples/Greenhouse/Assets"
+        "$<TARGET_FILE_DIR:RamusGreenhouse>/Assets" #[TODO] Assets/App/
+    COMMENT "Deploying Greenhouse app assets..."
 )

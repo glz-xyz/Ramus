@@ -3,16 +3,22 @@
 
 int main(int argc, char** argv)
 {
-    // 1. Set up infra
-    // 2. Init Device & AssetManager
-
     ramus::EngineConfig engineConfig;
     engineConfig.winSettings = { "Greenhouse App", 1600, 900 };
 
     ramus::Engine engine(engineConfig);
 
-    std::unique_ptr<ramus::Application> app = ramus::CreateApplication();
-    engine.Run(std::move(app));
+    try 
+    {
+        std::unique_ptr<ramus::Application> app = ramus::CreateApplication();
+        engine.Run(std::move(app));
+    }
+    catch (const std::exception& e) 
+    {
+        printf("FATAL ENGINE EXCEPTION: %s\n", e.what());
+        getchar(); 
+        return EXIT_FAILURE;
+    }
 
     return EXIT_SUCCESS;
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Ramus/Graphics/Device/OpenGL/OpenGLResource.hpp"
+#include "Ramus/Graphics/Device/OpenGL/OpenGLHandle.hpp"
 #include "Ramus/Graphics/Device/OpenGL/OpenGLVertexBuffer.hpp"
 #include "Ramus/Graphics/Device/OpenGL/OpenGLIndexBuffer.hpp"
 
@@ -10,11 +10,10 @@
 namespace ramus
 {
 
-    class OpenGLVertexArray : public OpenGLResource<OpenGLVertexArray>
+    class OpenGLVertexArray
     {
     public:
         OpenGLVertexArray();
-        ~OpenGLVertexArray();
 
         OpenGLVertexArray(const OpenGLVertexArray&) = delete;
         OpenGLVertexArray& operator=(const OpenGLVertexArray&) = delete;
@@ -25,7 +24,12 @@ namespace ramus
         void Bind() const;
         void Unbind() const;
 
+        uint32_t GetHandle() const { return m_handle.Get(); }
+
     private:
+        static uint32_t CreateInternal();
+        OpenGLHandle<VertexArrayDeleter> m_handle;
+        
         uint32_t m_vboIdx = 0;
 
         std::vector<std::shared_ptr<OpenGLVertexBuffer>> m_vbos;

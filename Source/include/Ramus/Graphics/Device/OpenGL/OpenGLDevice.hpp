@@ -7,6 +7,7 @@
 
 namespace ramus 
 {
+    class ShaderProgramBase;
 
     class OpenGLDevice : public GraphicsDevice
     {
@@ -20,6 +21,7 @@ namespace ramus
         void Present() override;
 
         std::unique_ptr<DeviceResource> CreateResource(const Mesh& mesh) override;
+        std::unique_ptr<ShaderProgramBase> CreateShaderProgram(const std::string& vertexShaderPath, const std::string& fragmentShaderPath) override;
 
         void BindGeometry(DeviceResource* resource) override;
         void UnbindGeometry() override;

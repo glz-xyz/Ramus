@@ -1,0 +1,16 @@
+{
+    "$schema": "../Schemas/material.schema.json",
+    "name": "TexturedQuad",
+    "shader": 
+    {
+        "vertex": "Shaders/Library/TexturedQuad.vert",
+        "fragment": "Shaders/Library/TexturedQuad.frag"
+    },
+    "samplers": 
+    [
+        {
+            "binding": "u_diffuse",
+            "texture": null
+        }
+    ]
+}

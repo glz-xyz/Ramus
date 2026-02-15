@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Ramus/Graphics/Device/Base/GraphicsContext.hpp"
+#include "Ramus/Graphics/Device/GraphicsContext.hpp"
 
 namespace ramus 
 {

@@ -5,14 +5,13 @@
 
 namespace ramus
 {
-
     class MaterialLoader : public AssetLoader<Material>
     {
     public: 
-        MaterialLoader() = default;
-        ~MaterialLoader() = default;
+        MaterialLoader();
+        ~MaterialLoader();
         
-        std::shared_ptr<Material> Load(const std::string& path) override;
+        std::shared_ptr<Material> Load(const std::string& path, AssetLoadContext& loadContext) override;
     };
 
 }

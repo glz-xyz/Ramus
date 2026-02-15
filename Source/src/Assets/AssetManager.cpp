@@ -3,6 +3,7 @@
 #include "Ramus/Assets/Loaders/ModelLoader.hpp"
 #include "Ramus/Assets/Loaders/TextureLoader.hpp"
 #include "Ramus/Graphics/Device/GraphicsDevice.hpp"
+#include "Ramus/Core/Services/Logger.hpp"
 
 namespace ramus
 {
@@ -11,37 +12,28 @@ namespace ramus
         m_graphicsDevice(device)
     {
         assert(m_graphicsDevice != nullptr && "Cannot initialize AssetManager without a Graphics Device!");
+        m_loadContext.device = m_graphicsDevice;
+        m_loadContext.manager = this;
 
         m_materialLoader = std::make_unique<MaterialLoader>();
-        m_modelLoader = std::make_unique<ModelLoader>(device);
+        m_modelLoader = std::make_unique<ModelLoader>();
         m_textureLoader = std::make_unique<TextureLoader>();
     }
 
-    std::shared_ptr<Material> AssetManager::GetMaterial(const std::string& path) 
+    AssetManager::~AssetManager() = default;
+
+    std::shared_ptr<Material> AssetManager::LoadMaterial(const std::string& path) 
     {
-        return GetAsset(path, m_materialCache, *m_materialLoader);
+        return LoadInternal<Material>(path, *m_materialLoader, m_materialCache);
     }
 
-    std::shared_ptr<Model> AssetManager::GetModel(const std::string& path) 
+    std::shared_ptr<Model> AssetManager::LoadModel(const std::string& path) 
     {
-        return GetAsset(path, m_modelCache, *m_modelLoader);
+        return LoadInternal<Model>(path, *m_modelLoader, m_modelCache);
     }
 
-    std::shared_ptr<Texture> AssetManager::GetTexture(const std::string& path) 
+    std::shared_ptr<Texture> AssetManager::LoadTexture(const std::string& path) 
     {
-        return GetAsset(path, m_textureCache, *m_textureLoader);
+        return LoadInternal<Texture>(path, *m_textureLoader, m_textureCache);
     }
-
-    template <typename T>
-    std::shared_ptr<T> AssetManager::GetAsset(const std::string& path, AssetCache<T>& cache, AssetLoader<T>& loader) 
-    {
-        auto it = cache.find(path);
-        if (it != cache.end()) return it->second;
-
-        auto resource = loader.Load(path);
-        if (resource) cache[path] = resource;
-        
-        return resource;
-    }
-
 }

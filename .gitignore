@@ -1,4 +1,5 @@
 devlog/
+*.log
 
 # -- Assets ---
 textures/

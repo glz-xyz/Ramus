@@ -3,19 +3,22 @@
 #include "Ramus/Graphics/Device/OpenGL/OpenGLVertexArray.hpp"
 #include "Ramus/Graphics/Device/OpenGL/OpenGLUtils.hpp"
 
-#include <glad/gl.h>>
+#include <glad/gl.h>
 
 namespace ramus
 {
 
-    OpenGLVertexArray::OpenGLVertexArray()
+    OpenGLVertexArray::OpenGLVertexArray() 
+        : m_handle(CreateInternal())
     {
-        glCreateVertexArrays(1, &m_handle);
+        
     }
 
-    OpenGLVertexArray::~OpenGLVertexArray()
+    uint32_t OpenGLVertexArray::CreateInternal()
     {
-        glDeleteVertexArrays(1, &m_handle);
+        uint32_t handle = 0;
+        glCreateVertexArrays(1, &handle);
+        return handle;
     }
 
     void OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<OpenGLVertexBuffer>& vbo)

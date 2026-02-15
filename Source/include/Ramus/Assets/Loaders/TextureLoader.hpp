@@ -5,14 +5,13 @@
 
 namespace ramus
 {
-
     class TextureLoader : public AssetLoader<Texture>
     {
     public: 
-        TextureLoader() = default;
+        TextureLoader();
         ~TextureLoader() = default;
         
-        std::shared_ptr<Texture> Load(const std::string& path) override;
+        std::shared_ptr<Texture> Load(const std::string& path, AssetLoadContext& loadContext) override;
     };
 
 }

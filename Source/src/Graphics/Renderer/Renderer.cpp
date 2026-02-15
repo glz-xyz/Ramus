@@ -17,7 +17,7 @@ namespace ramus
     {
         //glEnable(GL_DEPTH_TEST);
         //glDepthFunc(GL_LESS);
-//
+
         //glEnable(GL_CULL_FACE);
         //glCullFace(GL_BACK);
     }
@@ -33,10 +33,11 @@ namespace ramus
         m_graphicsDevice->Present();
     }
 
-    void Renderer::Render(const Model& model)
+    void Renderer::Render(const Model& model, const Material& material, const glm::mat4& transform)
     {
-        const auto& meshLinks = model.GetMeshLinks();
+        material.Bind();
 
+        const auto& meshLinks = model.GetMeshLinks();
         for (const auto& link : meshLinks) 
         {
             m_graphicsDevice->BindGeometry(link.resource.get());
