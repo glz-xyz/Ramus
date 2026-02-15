@@ -17,12 +17,8 @@ namespace ramus
         m_context = std::make_unique<OpenGLContext>(nativeWindow);
         m_context->Init();
 
-        // 3. Set Initial State (Using the settings from EngineConfig)
-        //ConfigureInitialState(settings);
-
         Init();
 
-        // 4. Log hardware info (Great for debugging those Coursera assets)
         const char* vendor = reinterpret_cast<const char*>(glGetString(GL_VENDOR));
         const char* renderer = reinterpret_cast<const char*>(glGetString(GL_RENDERER));
         Logger::GetRendererLogger()->info("GPU: {} ({})", renderer, vendor);
@@ -36,6 +32,7 @@ namespace ramus
         glEnable(GL_CULL_FACE);
         glCullFace(GL_BACK);
 
+        // [TODO]
         // Enable MSAA if requested in the config
         //if (settings.msaaSamples > 1) 
         //{
