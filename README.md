@@ -10,7 +10,7 @@
 High-performance procedural flora generation and real-time rendering built _from the ground up_ in C++17 and Modern OpenGL.
 
 ## 🌅 Horizon
-The long-term vision for Ramus. We track our high-level goals via [roadmap.sh/ramus](link).
+The long-term vision for Ramus. We track our high-level goals via GitHub Projects, but you may also [visalize our roadmap here](roadmap.sh/ramus).
 
 ## 💻 Platforms
 Ramus currently thrives in environments supporting modern desktop OpenGL.
@@ -27,3 +27,14 @@ Ramus currently thrives in environments supporting modern desktop OpenGL.
 
 ## 🌱 Contributing
     ...
+
+## 📦 Dependencies
+- https://github.com/assimp/assimp.git
+- https://github.com/catchorg/Catch2.git
+- https://github.com/g-truc/glm.git
+- https://github.com/glfw/glfw.git
+- https://github.com/ocornut/imgui.git
+- https://github.com/nlohmann/json.git
+- https://github.com/gabime/spdlog.git
+- https://github.com/nothings/stb.git
+- https://github.com/Dav1dde/glad.git
