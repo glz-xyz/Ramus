@@ -13,12 +13,10 @@ public:
         m_grassMaterial = m_assetManager->LoadMaterial(GH_ASSET_PATH + "Materials/UncutGrass.mat");
 
         m_grassTransform = glm::mat4(1.0f); 
-        // Move it slightly into the screen but within the [-1, 1] range
-        m_grassTransform = glm::translate(m_grassTransform, glm::vec3(0.0f, 0.0f, 0.0f)); 
-        // Keep the rotation if you want it flat
+        m_grassTransform = glm::translate(m_grassTransform, glm::vec3(0.0f, -1.0f, -5.0f)); 
         m_grassTransform = glm::rotate(m_grassTransform, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-        // Make it big enough to see
-        m_grassTransform = glm::scale(m_grassTransform, glm::vec3(0.5f));
+        m_grassTransform = glm::scale(m_grassTransform, glm::vec3(1.0f));
+
     }
 
     void OnUpdate(double dt) override
@@ -30,7 +28,12 @@ public:
     {
         m_renderer->BeginFrame();
 
-        m_renderer->Render(*m_grassModel, *m_grassMaterial, m_grassTransform);
+        float aspect = m_window->GetAspectRatio();
+        glm::mat4 projection = glm::perspective(glm::radians(45.0f), aspect, 0.1f, 100.0f);
+        glm::mat4 view = glm::mat4(1.0f); 
+        glm::mat4 viewProj = projection * view;
+
+        m_renderer->Render(*m_grassModel, *m_grassMaterial, viewProj * m_grassTransform);
 
         m_renderer->EndFrame();
     }

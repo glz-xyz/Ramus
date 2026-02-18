@@ -46,6 +46,7 @@ namespace ramus
 
             double deltaTime = 16.0;
             m_application->OnUpdate(deltaTime);
+            
             m_renderer->BeginFrame();
             m_application->OnRender();
             m_renderer->EndFrame();

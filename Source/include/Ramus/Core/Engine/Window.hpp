@@ -20,12 +20,12 @@ namespace ramus
 
         void HandleEvents();
         bool IsOpen() const;
-        void Display();
 
-        void* GetNativeHandle();
+        void* GetNativeHandle() const { return m_nativeHandle; }
+        float GetAspectRatio() const;
 
     private:
-        std::string m_title;
+        WindowSettings m_settings;
         void* m_nativeHandle;
     };
 

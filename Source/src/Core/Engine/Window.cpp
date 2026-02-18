@@ -8,16 +8,17 @@
 namespace ramus
 {
 
-    Window::Window(const WindowSettings& settings)
+    Window::Window(const WindowSettings& settings) :
+        m_settings(settings)
     {
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4); 
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-        m_nativeHandle = glfwCreateWindow(settings.width, settings.height, settings.title.c_str(), nullptr, nullptr);
+        m_nativeHandle = glfwCreateWindow(m_settings.width, m_settings.height, m_settings.title.c_str(), nullptr, nullptr);
         if (m_nativeHandle)
         {
-            Logger::GetWindowLogger()->info("GLFW Window created: '{}' ({}x{})", settings.title, settings.width, settings.height);
+            Logger::GetWindowLogger()->info("GLFW Window created: '{}' ({}x{})", m_settings.title, m_settings.width, m_settings.height);
         }
         else
         {
@@ -40,13 +41,9 @@ namespace ramus
         return !glfwWindowShouldClose(WindowPtr);
     }
 
-    void Window::Display()
+    float Window::GetAspectRatio() const
     {
-        glfwSwapBuffers(WindowPtr);
-    }
-
-    void* Window::GetNativeHandle()
-    {
-        return m_nativeHandle;
+        if (m_settings.height == 0) return 1.0f;
+        return static_cast<float>(m_settings.width) / static_cast<float>(m_settings.height);
     }
 }
