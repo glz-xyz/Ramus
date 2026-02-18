@@ -4,8 +4,6 @@
 #include "Ramus/Assets/Material.hpp"
 #include "Ramus/Assets/Model.hpp"
 
-#include <glm/glm.hpp>
-
 namespace ramus
 {
 

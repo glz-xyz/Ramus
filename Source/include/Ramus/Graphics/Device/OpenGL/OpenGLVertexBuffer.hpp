@@ -2,9 +2,6 @@
 #include "Ramus/Graphics/Device/OpenGL/OpenGLBuffer.hpp"
 #include "Ramus/Graphics/GraphicsDefines.hpp"
 
-#include <string>
-#include <vector>
-
 namespace ramus
 {
 

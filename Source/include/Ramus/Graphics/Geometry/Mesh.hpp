@@ -2,9 +2,6 @@
 
 #include "Ramus/Graphics/Geometry/Vertex.hpp"
 
-#include <vector>
-#include <memory>
-
 namespace ramus
 {
     struct Mesh

@@ -7,10 +7,6 @@
 #include "Ramus/Core/Services/Logger.hpp"
 #include "Ramus/Utils/FileUtils.hpp"
 
-#include <string>
-#include <memory>
-#include <unordered_map>
-
 namespace ramus
 {
     class MaterialLoader;

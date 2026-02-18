@@ -91,19 +91,25 @@ target_include_directories(imgui_setup PUBLIC ${imgui_SOURCE_DIR} ${imgui_SOURCE
 # =================================================================================================
 # Ramus Library
 # =================================================================================================
-add_library(RamusEngine STATIC
-    Source/src/Core/Engine/Engine.cpp
-    Source/src/Core/Engine/Input.cpp
-    Source/src/Core/Engine/Window.cpp
-    Source/src/Core/Services/Logger.cpp
-    Source/src/Assets/Asset.cpp
-    Source/src/Assets/AssetManager.cpp
-    Source/src/Assets/Material.cpp
-    Source/src/Assets/Model.cpp
-    Source/src/Assets/Texture.cpp
-    Source/src/Assets/Loaders/MaterialLoader.cpp
-    Source/src/Assets/Loaders/ModelLoader.cpp
-    Source/src/Assets/Loaders/TextureLoader.cpp
+set(RAMUS_CORE
+    "Source/src/Core/Engine/Engine.cpp"
+    "Source/src/Core/Engine/Input.cpp"
+    "Source/src/Core/Engine/Window.cpp"
+    "Source/src/Core/Services/Logger.cpp"
+)
+
+set(RAMUS_ASSETS
+    "Source/src/Assets/Asset.cpp"
+    "Source/src/Assets/AssetManager.cpp"
+    "Source/src/Assets/Material.cpp"
+    "Source/src/Assets/Model.cpp"
+    "Source/src/Assets/Texture.cpp"
+    "Source/src/Assets/Loaders/MaterialLoader.cpp"
+    "Source/src/Assets/Loaders/ModelLoader.cpp"
+    "Source/src/Assets/Loaders/TextureLoader.cpp"
+)
+
+set(RAMUS_GRAPHICS
     Source/src/Graphics/Renderer/Renderer.cpp
     Source/src/Graphics/Device/OpenGL/OpenGLBuffer.cpp
     Source/src/Graphics/Device/OpenGL/OpenGLContext.cpp
@@ -122,12 +128,20 @@ add_library(RamusEngine STATIC
     Source/src/Graphics/Geometry/Mesh.cpp
 )
 
+add_library(RamusEngine STATIC
+    ${RAMUS_CORE}
+    ${RAMUS_ASSETS}
+    ${RAMUS_GRAPHICS}
+)
+
 target_include_directories(RamusEngine 
     PUBLIC 
         "${CMAKE_CURRENT_SOURCE_DIR}/Source/include"
     PRIVATE 
         "${CMAKE_CURRENT_SOURCE_DIR}/Source/src"
 )
+
+target_precompile_headers(RamusEngine PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/Source/include/Ramus/Common.hpp")
 
 target_link_libraries(RamusEngine 
     PUBLIC

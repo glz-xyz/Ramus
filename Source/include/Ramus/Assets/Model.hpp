@@ -4,7 +4,6 @@
 #include "Ramus/Graphics/Geometry/Mesh.hpp"
 #include "Ramus/Graphics/Device/DeviceResource.hpp"
 
-#include <vector>
 #include <memory>
 
 namespace ramus

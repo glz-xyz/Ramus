@@ -1,28 +1,26 @@
 #pragma once
 
-// Types
+#include <algorithm>
+#include <array>
+#include <cassert>
 #include <cstddef>
-#include <typeindex>
-
-// Strings
+#include <cstdint>
+#include <filesystem>
+#include <fstream>
+#include <functional>
+#include <iostream>
+#include <map>
+#include <memory>
+#include <set>
+#include <sstream>
+#include <stdexcept>
 #include <string>
 #include <string_view>
-
-// Containers
-#include <array>
-#include <map>
+#include <typeindex>
 #include <unordered_map>
-#include <set>
 #include <unordered_set>
+#include <utility>
 #include <vector>
 
-// Other
-#include <algorithm>
-#include <functional>
-#include <memory>
-#include <stdexcept>
-#include <utility>
-
-// Math
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>

@@ -5,9 +5,6 @@
 #include "Ramus/Graphics/Geometry/Mesh.hpp"
 #include "Ramus/Graphics/Device/GraphicsDevice.hpp"
 
-#include <memory>
-#include <vector>
-
 struct aiScene;
 struct aiMesh;
 struct aiNode;

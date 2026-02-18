@@ -2,10 +2,6 @@
 
 #include "Ramus/Graphics/Device/Base/ShaderBase.hpp"
 
-#include <glm/glm.hpp>
-
-#include <string>
-
 namespace ramus
 {
 

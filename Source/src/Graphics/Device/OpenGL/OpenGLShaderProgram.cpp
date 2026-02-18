@@ -2,9 +2,6 @@
 #include "Ramus/Graphics/Device/OpenGL/OpenGLShader.hpp"
 
 #include <glad/gl.h>
-#include <iostream>
-#include <vector>
-#include <unordered_map>
 
 namespace ramus
 {

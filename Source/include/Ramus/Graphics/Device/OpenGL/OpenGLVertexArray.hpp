@@ -4,9 +4,6 @@
 #include "Ramus/Graphics/Device/OpenGL/OpenGLVertexBuffer.hpp"
 #include "Ramus/Graphics/Device/OpenGL/OpenGLIndexBuffer.hpp"
 
-#include <memory>
-#include <vector>
-
 namespace ramus
 {
 

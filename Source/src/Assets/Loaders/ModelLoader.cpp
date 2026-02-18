@@ -9,9 +9,6 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-#include <string>
-#include <vector>
-
 namespace ramus
 {
     ModelLoader::ModelLoader()

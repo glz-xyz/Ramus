@@ -10,12 +10,6 @@
 #include "Ramus/Graphics/Device/DeviceResource.hpp"
 #include "Ramus/Graphics/Geometry/Mesh.hpp"
 
-#include <glm/glm.hpp>
-
-#include <vector>
-#include <cstdint>
-#include <memory>
-
 namespace ramus
 {
     enum class GraphicsAPI

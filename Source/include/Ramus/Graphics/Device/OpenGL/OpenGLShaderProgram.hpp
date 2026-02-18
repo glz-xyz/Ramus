@@ -3,9 +3,6 @@
 #include "Ramus/Graphics/Device/Base/ShaderProgramBase.hpp"
 #include "Ramus/Graphics/Device/OpenGL/OpenGLShader.hpp"
 
-#include <unordered_map>
-#include <memory>
-
 namespace ramus 
 {
 

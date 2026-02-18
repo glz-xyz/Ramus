@@ -1,8 +1,8 @@
 #pragma once
 
-#include <string>
-#include <vector>
+#include <cstdint>
 #include <memory>
+#include <string>
 
 namespace ramus 
 {

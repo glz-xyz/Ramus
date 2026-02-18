@@ -2,9 +2,6 @@
 #include "Ramus/Graphics/Device/Base/TextureBase.hpp"
 #include "Ramus/Graphics/GraphicsDefines.hpp"
 
-#include <memory>
-#include <cassert>
-
 namespace ramus
 {
 

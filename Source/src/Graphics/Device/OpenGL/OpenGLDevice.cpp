@@ -7,7 +7,6 @@
 #include "Ramus/Graphics/Device/OpenGL/OpenGLTexture.hpp"
 #include "Ramus/Core/Services/Logger.hpp"
 
-#include <glm/glm.hpp>
 #include <glad/gl.h>
 #include <GLFW/glfw3.h>
 

@@ -3,8 +3,6 @@
 #include "Ramus/Graphics/Device/Base/ShaderBase.hpp"
 #include "Ramus/Graphics/Device/OpenGL/OpenGLHandle.hpp"
 
-#include <string>
-
 namespace ramus 
 {
     

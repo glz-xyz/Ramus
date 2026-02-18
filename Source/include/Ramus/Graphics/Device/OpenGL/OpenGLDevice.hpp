@@ -3,8 +3,6 @@
 #include "Ramus/Graphics/Device/GraphicsDevice.hpp"
 #include "Ramus/Graphics/Device/OpenGL/OpenGLContext.hpp"
 
-#include <memory>
-
 namespace ramus 
 {
     class ShaderProgramBase;
