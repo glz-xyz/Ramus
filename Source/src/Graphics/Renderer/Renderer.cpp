@@ -1,6 +1,7 @@
 #include "Ramus/Graphics/Renderer/Renderer.hpp"
 #include "Ramus/Core/Services/Logger.hpp"
 #include "Ramus/Assets/Model.hpp"
+#include "Ramus/Graphics/Device/Base/ShaderProgramBase.hpp"
 
 #include <glad/gl.h>
 #include <spdlog/spdlog.h>
@@ -35,18 +36,21 @@ namespace ramus
 
     void Renderer::Render(const Model& model, const Material& material, const glm::mat4& transform)
     {
-        material.Bind(m_graphicsContext);
+        auto shader = material.GetShaderProgram();
+        shader->Bind();
+        shader->SetUniform("u_modelViewProj", transform);
+
+        if (auto diffuse = material.GetDiffuseTexture())
+        {
+            m_graphicsContext->SetTexture(0, diffuse.get());
+            shader->SetUniform("u_diffuse", 0);
+        }
 
         const auto& meshLinks = model.GetMeshLinks();
         for (const auto& link : meshLinks) 
         {
             m_graphicsContext->BindGeometry(link.resource.get());
-
-            uint32_t count = link.mesh->indices.size();
-            m_graphicsContext->DrawIndexed(count);
-
-            // [TODO] Modernize and/or pass resource so we can more explicitly know which (VAO) we're unbinding.
-            m_graphicsContext->UnbindGeometry();
+            m_graphicsContext->DrawIndexed(link.mesh->indices.size());
         }
     }
 

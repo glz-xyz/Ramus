@@ -3,6 +3,7 @@
 #include "Ramus/Graphics/GraphicsDefines.hpp"
 
 #include <memory>
+#include <cassert>
 
 namespace ramus
 {
@@ -11,7 +12,6 @@ namespace ramus
         m_descriptor(desc),
         m_resource(std::move(resource))
     {
-
     }
 
     Texture::~Texture()

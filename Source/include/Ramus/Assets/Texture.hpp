@@ -17,10 +17,10 @@ namespace ramus
         Texture(const TextureDescriptor& desc, std::unique_ptr<TextureBase> resource);
         ~Texture();
 
-        TextureBase* GetResource() const { return m_resource.get(); }
+        std::shared_ptr<TextureBase> GetResource() const { return m_resource; }
 
     protected:
         TextureDescriptor m_descriptor;
-        std::unique_ptr<TextureBase> m_resource;
+        std::shared_ptr<TextureBase> m_resource;
     };
 }

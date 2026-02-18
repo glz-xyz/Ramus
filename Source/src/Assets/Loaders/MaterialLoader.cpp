@@ -94,7 +94,8 @@ namespace ramus
                 {
                     std::string texPath = sampler["texture"];
                     auto texture = loadContext.manager->LoadTexture(texPath);
-                    // [TODO] material->SetTexture(...
+                    // [TODO] hack to hardcode diffuse (only type for now)
+                    material->SetDiffuseTexture(texture->GetResource());
                 }
             }
         }
