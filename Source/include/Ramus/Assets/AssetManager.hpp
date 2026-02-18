@@ -1,16 +1,11 @@
 #pragma once
 
 #include "Ramus/Assets/AssetLoadContext.hpp"
-
 #include "Ramus/Assets/Material.hpp"
 #include "Ramus/Assets/Model.hpp"
 #include "Ramus/Assets/Texture.hpp"
-
+#include "Ramus/Core/Services/Logger.hpp"
 #include "Ramus/Utils/FileUtils.hpp"
-
-//#include "Ramus/Assets/Loaders/MaterialLoader.hpp"
-//#include "Ramus/Assets/Loaders/ModelLoader.hpp"
-//#include "Ramus/Assets/Loaders/TextureLoader.hpp"
 
 #include <string>
 #include <memory>
