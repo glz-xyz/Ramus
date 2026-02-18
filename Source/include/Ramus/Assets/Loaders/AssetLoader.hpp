@@ -18,7 +18,8 @@ namespace ramus
         {
             std::string ext = std::filesystem::path(path).extension().string();
             for (const auto& supported : m_supportedExtensions) 
-                return ext == supported;
+                if (ext == supported)
+                    return true;
             return false;
         }
 

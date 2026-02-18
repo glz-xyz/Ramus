@@ -4,38 +4,44 @@
 #include "Ramus/Graphics/Device/OpenGL/OpenGLMesh.hpp"
 #include "Ramus/Graphics/Device/OpenGL/OpenGLShader.hpp"
 #include "Ramus/Graphics/Device/OpenGL/OpenGLShaderProgram.hpp"
+#include "Ramus/Graphics/Device/OpenGL/OpenGLTexture.hpp"
 #include "Ramus/Core/Services/Logger.hpp"
 
 #include <glm/glm.hpp>
 #include <glad/gl.h>
+#include <GLFW/glfw3.h>
+
+#define WindowPtr static_cast<GLFWwindow*>(m_nativeWindow)
 
 namespace ramus 
 {
 
-    OpenGLDevice::OpenGLDevice(void* nativeWindow)
+    OpenGLDevice::OpenGLDevice(void* nativeWindow) :
+        m_nativeWindow(nativeWindow)
     {
-        m_context = std::make_unique<OpenGLContext>(nativeWindow);
-        m_context->Init();
+        glfwMakeContextCurrent(WindowPtr);
 
-        // 3. Set Initial State (Using the settings from EngineConfig)
-        //ConfigureInitialState(settings);
+        int glVersion = gladLoadGL(glfwGetProcAddress);
+        if (glVersion == 0) 
+        {
+            Logger::GetRendererLogger()->critical("gladLoadGL failed!");
+            throw std::runtime_error("OpenGL context init failed: glad could not load OpenGL functions.");
+        }
+        else
+        {
+            m_context = std::make_unique<OpenGLContext>();
 
-        Init();
+            auto* glVersionStr = (const char*)glGetString(GL_VERSION);
+            Logger::GetRendererLogger()->info("Graphics context init (OpenGL {})", glVersionStr);
 
-        // 4. Log hardware info (Great for debugging those Coursera assets)
-        const char* vendor = reinterpret_cast<const char*>(glGetString(GL_VENDOR));
-        const char* renderer = reinterpret_cast<const char*>(glGetString(GL_RENDERER));
-        Logger::GetRendererLogger()->info("GPU: {} ({})", renderer, vendor);
+            const char* vendor = reinterpret_cast<const char*>(glGetString(GL_VENDOR));
+            const char* renderer = reinterpret_cast<const char*>(glGetString(GL_RENDERER));
+            Logger::GetRendererLogger()->info("GPU: {} ({})", renderer, vendor);
+        }
     }
 
-    void OpenGLDevice::Init()
+    void OpenGLDevice::SetInitialState()
     {
-        glEnable(GL_DEPTH_TEST);
-        glDepthFunc(GL_LESS);
-
-        glEnable(GL_CULL_FACE);
-        glCullFace(GL_BACK);
-
         // Enable MSAA if requested in the config
         //if (settings.msaaSamples > 1) 
         //{
@@ -49,19 +55,25 @@ namespace ramus
         // ...
     }
 
-    void OpenGLDevice::SetClearColor(const glm::vec4& clearColor)
+    void OpenGLDevice::SetVSync(bool enabled)
     {
-        glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
+        glfwSwapInterval(enabled ? 1 : 0);
+        Logger::GetRendererLogger()->debug("VSync {}.", enabled ? "Enabled" : "Disabled");
     }
 
-    void OpenGLDevice::Clear()
+    GraphicsContext* OpenGLDevice::GetContext()
     {
-        glClear(GL_COLOR_BUFFER_BIT);
+        return m_context.get();
+    }
+
+    void* OpenGLDevice::GetNativeWindow()
+    {
+        return m_nativeWindow;
     }
 
     void OpenGLDevice::Present()
     {
-        m_context->SwapBuffers();
+        glfwSwapBuffers(WindowPtr);
     }
 
     std::unique_ptr<DeviceResource> OpenGLDevice::CreateResource(const Mesh& mesh)
@@ -76,27 +88,8 @@ namespace ramus
         return std::make_unique<OpenGLShaderProgram>(vs, fs);
     }
 
-    void OpenGLDevice::BindGeometry(DeviceResource* resource)
+    std::unique_ptr<TextureBase> OpenGLDevice::CreateTexture(const TextureDescriptor& desc, const void* data) 
     {
-        if (resource)
-        {
-            auto* glMesh = static_cast<OpenGLMesh*>(resource);
-            glMesh->Bind();
-        }
-        else
-        {
-            assert(false && "Attempting to bind a null geometry resource!");
-            return;
-        }
-    }
-
-    void OpenGLDevice::UnbindGeometry()
-    {
-        glBindVertexArray(0);
-    }
-
-    void OpenGLDevice::DrawIndexed(uint32_t indexCount)
-    {
-        glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, nullptr);
+        return std::make_unique<OpenGLTexture>(desc, data);
     }
 }

@@ -9,7 +9,7 @@
   [
     {
       "binding": "u_diffuse",
-      "texture": "Textures/uncut_grass_2k_basecolor.png"
+      "texture": "Assets/Textures/quixel/uncut_grass/Uncut_Grass_oeeb70_2K_BaseColor.jpg"
     }
   ]
 }

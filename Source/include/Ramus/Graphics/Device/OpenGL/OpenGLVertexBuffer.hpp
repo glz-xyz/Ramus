@@ -8,6 +8,7 @@
 namespace ramus
 {
 
+    // [TODO] Should inherit from VertexBufferBase (and that from OpenGLBuffer)
     class OpenGLVertexBuffer : public OpenGLBuffer
     {
     public:

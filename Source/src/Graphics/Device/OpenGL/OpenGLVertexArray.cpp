@@ -8,8 +8,9 @@
 namespace ramus
 {
 
-    OpenGLVertexArray::OpenGLVertexArray() 
-        : m_handle(CreateInternal())
+    OpenGLVertexArray::OpenGLVertexArray() : 
+        m_handle(CreateInternal()),
+        m_vboIdx(0)
     {
         
     }
@@ -23,8 +24,16 @@ namespace ramus
 
     void OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<OpenGLVertexBuffer>& vbo)
     {
-        const auto& layout = vbo->GetLayout();
-        glVertexArrayVertexBuffer(m_handle, 0, vbo->GetHandle(), 0, layout.GetStride());
+        // const auto& layout = vbo->GetLayout();
+        // HACK
+        auto layout = OpenGLVertexBuffer::Layout(
+        {
+            { ShaderDataType::Float3, "a_position" },
+            { ShaderDataType::Float2, "a_texCoord"}    
+        });
+
+        uint32_t bindingPoint = 0;
+        glVertexArrayVertexBuffer(m_handle, bindingPoint, vbo->GetHandle(), 0, layout.GetStride());
 
         for (const auto& element : layout) 
         {
@@ -37,6 +46,8 @@ namespace ramus
                 element.normalized ? GL_TRUE : GL_FALSE, 
                 element.offset
             );
+
+            glVertexArrayAttribBinding(m_handle, m_vboIdx, bindingPoint);
 
             m_vboIdx++;
         }

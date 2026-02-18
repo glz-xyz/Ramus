@@ -4,11 +4,12 @@
 namespace ramus
 {
 
+    // [TODO] Should inherit from IndexBufferBase (and that from OpenGLBuffer)
     class OpenGLIndexBuffer : public OpenGLBuffer
     {
     public:
-        OpenGLIndexBuffer(size_t size, const void* data, BufferFlags flags = BufferFlags::None)
-            : OpenGLBuffer(size, data, flags) 
+        OpenGLIndexBuffer(uint32_t count, const uint32_t* indices)
+            : OpenGLBuffer(count * sizeof(uint32_t), indices, BufferFlags::None) 
         {
         }
     };

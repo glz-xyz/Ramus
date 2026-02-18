@@ -4,8 +4,9 @@
 
 namespace ramus 
 {
-
-    enum class ShaderDataType {
+    #pragma region Shaders
+    enum class ShaderDataType 
+    {
         None = 0, Float, Float2, Float3, Float4, Mat3, Mat4, Int, Int2, Int3, Int4, Bool
     };
 
@@ -46,4 +47,24 @@ namespace ramus
         }
         return 0;
     }
+    #pragma endregion // Shaders
+
+    #pragma region Textures
+    enum class TextureFormat { R8, RGB8, RGBA8, Depth24Stencil8 };
+    enum class TextureFilter { Linear, Nearest };
+    enum class TextureWrap   { Repeat, ClampToEdge, Mirror };
+
+    struct TextureDescriptor 
+    {
+        uint32_t width = 0;
+        uint32_t height = 0;
+        TextureFormat format = TextureFormat::RGBA8;
+        TextureFilter minFilter = TextureFilter::Linear;
+        TextureFilter magFilter = TextureFilter::Linear;
+        TextureWrap wrapS = TextureWrap::Repeat;
+        TextureWrap wrapT = TextureWrap::Repeat;
+        bool useMipmaps = true;
+        // std::string debugName = "Texture";
+    };
+    #pragma endregion // Textures
 }

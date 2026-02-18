@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Ramus/Graphics/Device/GraphicsDevice.hpp"
+#include "Ramus/Graphics/Device/GraphicsContext.hpp"
 #include "Ramus/Assets/Material.hpp"
 #include "Ramus/Assets/Model.hpp"
 
@@ -12,7 +12,7 @@ namespace ramus
     class Renderer
     {
     public:
-        Renderer(GraphicsDevice*graphicsDevice);
+        Renderer(GraphicsContext* graphicsContext);
 
         void Init();
 
@@ -21,7 +21,7 @@ namespace ramus
         void EndFrame();
 
     private:
-        GraphicsDevice* m_graphicsDevice;
+        GraphicsContext* m_graphicsContext;
     };
 
 }

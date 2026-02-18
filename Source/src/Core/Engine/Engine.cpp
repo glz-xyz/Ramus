@@ -46,7 +46,10 @@ namespace ramus
 
             double deltaTime = 16.0;
             m_application->OnUpdate(deltaTime);
+            m_renderer->BeginFrame();
             m_application->OnRender();
+            m_renderer->EndFrame();
+            m_graphicsDevice->Present();
         }
     }
 
@@ -80,8 +83,7 @@ namespace ramus
             throw; 
         }
 
-        // Initialize the Renderer immediately since it's a direct graphics dependency
-        m_renderer = std::make_unique<Renderer>(m_graphicsDevice.get());
+        m_renderer = std::make_unique<Renderer>(m_graphicsDevice->GetContext());
     }
 
     void Engine::InitAssets()

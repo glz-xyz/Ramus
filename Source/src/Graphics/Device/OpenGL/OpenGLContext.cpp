@@ -1,17 +1,18 @@
 #include "Ramus/Graphics/Device/OpenGL/OpenGLContext.hpp"
+#include "Ramus/Graphics/Device/OpenGL/OpenGLMesh.hpp"
+#include "Ramus/Graphics/Device/OpenGL/OpenGLTexture.hpp"
+#include "Ramus/Graphics/Device/OpenGL/OpenGLIndexBuffer.hpp"
+#include "Ramus/Graphics/Device/OpenGL/OpenGLVertexBuffer.hpp"
 #include "Ramus/Core/Services/Logger.hpp"
 
 #include <glad/gl.h>
-#include <GLFW/glfw3.h>
-
-#define WindowPtr static_cast<GLFWwindow*>(m_nativeWindow)
 
 namespace ramus
 {
 
-    OpenGLContext::OpenGLContext(void* nativeWindow) : m_nativeWindow(nativeWindow)
+    OpenGLContext::OpenGLContext()
     {
-        Logger::GetRendererLogger()->info("OpenGL context acquired window.");
+        
     }
 
     OpenGLContext::~OpenGLContext()
@@ -21,28 +22,68 @@ namespace ramus
 
     void OpenGLContext::Init()
     {
-        glfwMakeContextCurrent(WindowPtr);
+        glEnable(GL_DEPTH_TEST);
+        glDepthFunc(GL_LESS);
 
-        int glVersion = gladLoadGL(glfwGetProcAddress);
-        if (glVersion == 0) 
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_BACK);
+    }
+
+    void OpenGLContext::Clear()
+    {
+        glClear(GL_COLOR_BUFFER_BIT);
+    }
+
+    void OpenGLContext::SetClearColor(float r, float g, float b, float a)
+    {
+        glClearColor(r, g, b, a);
+    }
+
+    void OpenGLContext::SetTexture(uint32_t slot, TextureBase* texture)
+    {
+        assert(texture);
+
+        auto* glTex = static_cast<OpenGLTexture*>(texture);
+        glActiveTexture(GL_TEXTURE0 + slot);
+        glBindTexture(GL_TEXTURE_2D, glTex->GetHandle());
+    }
+
+    void OpenGLContext::SetVertexBuffer(VertexBufferBase* vbo)
+    {
+
+    }
+
+    void OpenGLContext::SetIndexBuffer(IndexBufferBase* ibo)
+    {
+
+    }
+
+    void OpenGLContext::SetViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h) 
+    {
+
+    }
+
+    void OpenGLContext::BindGeometry(DeviceResource* resource)
+    {
+        if (resource)
         {
-            Logger::GetRendererLogger()->critical("gladLoadGL failed!");
-            throw std::runtime_error("OpenGL context init failed: glad could not load OpenGL functions.");
+            auto* glMesh = static_cast<OpenGLMesh*>(resource);
+            glMesh->Bind();
         }
-
-        auto* glVersionStr = (const char*)glGetString(GL_VERSION);
-        Logger::GetRendererLogger()->info("Graphics context init (OpenGL {})", glVersionStr);
+        else
+        {
+            assert(false && "Attempting to bind a null geometry resource!");
+            return;
+        }
     }
 
-
-    void OpenGLContext::SwapBuffers()
+    void OpenGLContext::UnbindGeometry()
     {
-        glfwSwapBuffers(WindowPtr);
+        glBindVertexArray(0);
     }
 
-    void OpenGLContext::SetVSync(bool enabled)
+    void OpenGLContext::DrawIndexed(uint32_t indexCount)
     {
-        glfwSwapInterval(enabled ? 1 : 0);
-        Logger::GetRendererLogger()->debug("VSync {}.", enabled ? "Enabled" : "Disabled");
+        glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, nullptr);
     }
 }

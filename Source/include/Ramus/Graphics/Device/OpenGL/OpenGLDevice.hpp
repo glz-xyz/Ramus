@@ -14,22 +14,20 @@ namespace ramus
     public:
         OpenGLDevice(void* nativeWindow);
 
-        void Init() override;
-
-        void SetClearColor(const glm::vec4& clearColor) override;
-        void Clear() override;
+        void SetInitialState() override;
+        void SetVSync(bool enabled) override;
         void Present() override;
+
+        GraphicsContext* GetContext() override;
+        void* GetNativeWindow() override;
 
         std::unique_ptr<DeviceResource> CreateResource(const Mesh& mesh) override;
         std::unique_ptr<ShaderProgramBase> CreateShaderProgram(const std::string& vertexShaderPath, const std::string& fragmentShaderPath) override;
-
-        void BindGeometry(DeviceResource* resource) override;
-        void UnbindGeometry() override;
-
-        void DrawIndexed(uint32_t indexCount) override;
+        std::unique_ptr<TextureBase> CreateTexture(const TextureDescriptor& desc, const void* data) override;
 
     private:
         std::unique_ptr<OpenGLContext> m_context;
+        void* m_nativeWindow;
     };
 
 }

@@ -39,16 +39,6 @@ namespace ramus
     };
     #pragma endregion // Buffers
 
-
-    struct TextureDesc 
-    {
-        uint32_t width;
-        uint32_t height;
-        TextureFormat format;
-        bool generateMipmaps = true;
-        const void* data = nullptr;
-    };
-
     enum class ShaderDataType { Float, Float2, Float3, Float4, Mat3, Mat4, Int, Int2, Int3, Int4, Bool };
     
     struct ShaderDesc 

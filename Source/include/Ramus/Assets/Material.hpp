@@ -6,8 +6,9 @@
 
 namespace ramus
 {
+    class GraphicsContext;
     class ShaderProgramBase;
-    class GraphicsDevice;
+    class TextureBase;
 
     class Material : public Asset
     {
@@ -18,9 +19,11 @@ namespace ramus
         ~Material();
 
         void SetShaderProgram(std::shared_ptr<ShaderProgramBase> program);
-        void Bind() const;
+        void SetDiffuseTexture(std::shared_ptr<TextureBase> texture) { m_diffuseTexture = texture; }
+        void Bind(GraphicsContext* context) const;
 
     protected:
         std::shared_ptr<ShaderProgramBase> m_shaderProgram;
+        std::shared_ptr<TextureBase> m_diffuseTexture;
     };
 }

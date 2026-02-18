@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Ramus/Graphics/GraphicsDefines.hpp"
+#include "Ramus/Graphics/Device/GraphicsContext.hpp"
 #include "Ramus/Graphics/Device/Base/VertexBufferBase.hpp"
 #include "Ramus/Graphics/Device/Base/IndexBufferBase.hpp"
 #include "Ramus/Graphics/Device/Base/TextureBase.hpp"
@@ -26,23 +28,21 @@ namespace ramus
     {
     public:
         virtual ~GraphicsDevice() = default;
-
-        virtual void Init() = 0;
-        virtual void Clear() = 0;
-        virtual void SetClearColor(const glm::vec4& clearColor) = 0;
-        virtual void Present() = 0;
+        
+        virtual void SetInitialState() = 0;
+        virtual void SetVSync(bool enabled) = 0;
 
         // Resource Creation
         virtual std::unique_ptr<DeviceResource> CreateResource(const Mesh& mesh) = 0;
         virtual std::unique_ptr<ShaderProgramBase> CreateShaderProgram(const std::string& vertexShaderSrc, const std::string& fragmentShaderSrc) = 0;
-        
-        // Binding
-        virtual void BindGeometry(DeviceResource* resource) = 0;
-        virtual void UnbindGeometry() = 0;
+        virtual std::unique_ptr<TextureBase> CreateTexture(const TextureDescriptor& desc, const void* data) = 0;
+    
+        // Swapchain
+        virtual void Present() = 0;
 
-        // Draw Calls
-        virtual void DrawIndexed(uint32_t count) = 0;
-
+        // Getters
+        virtual void* GetNativeWindow() = 0;
+        virtual GraphicsContext* GetContext() = 0;
         static GraphicsAPI GetAPI() { return s_API; }
         
     private:
