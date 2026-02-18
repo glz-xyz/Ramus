@@ -7,7 +7,6 @@
 
 namespace ramus
 {
-    inline GLFWwindow* WindowCast(void* nativeHandle) { static_cast<GLFWwindow*>(nativeHandle); }
 
     Window::Window(const WindowSettings& settings)
     {
