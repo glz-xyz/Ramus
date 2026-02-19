@@ -14,6 +14,7 @@ namespace ramus
     {
         InitWindowing();
         InitGraphics();
+        InitImGuiLayer();
         InitAssets();
     }
 
@@ -44,12 +45,18 @@ namespace ramus
         {
             m_window->HandleEvents();
 
+            m_imguiLayer->BeginFrame();
+            m_renderer->BeginFrame();
+
             double deltaTime = 16.0;
             m_application->OnUpdate(deltaTime);
             
-            m_renderer->BeginFrame();
             m_application->OnRender();
+            m_imguiLayer->OnImGuiRender();
+            
             m_renderer->EndFrame();
+            m_imguiLayer->EndFrame();
+
             m_graphicsDevice->Present();
         }
     }
@@ -85,6 +92,13 @@ namespace ramus
         }
 
         m_renderer = std::make_unique<Renderer>(m_graphicsDevice->GetContext());
+    }
+
+    void Engine::InitImGuiLayer()
+    {
+        m_imguiLayer = std::make_unique<ImGuiLayer>();
+        m_imguiLayer->OnAttach(m_window->GetNativeHandle());
+
     }
 
     void Engine::InitAssets()

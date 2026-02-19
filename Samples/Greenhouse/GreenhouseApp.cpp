@@ -26,16 +26,12 @@ public:
 
     void OnRender() override
     {
-        m_renderer->BeginFrame();
-
         float aspect = m_window->GetAspectRatio();
         glm::mat4 projection = glm::perspective(glm::radians(45.0f), aspect, 0.1f, 100.0f);
         glm::mat4 view = glm::mat4(1.0f); 
         glm::mat4 viewProj = projection * view;
 
         m_renderer->Render(*m_grassModel, *m_grassMaterial, viewProj * m_grassTransform);
-
-        m_renderer->EndFrame();
     }
 
     void OnExit() override

@@ -19,6 +19,8 @@ namespace ramus
         bool IsOpen() const;
 
         void* GetNativeHandle() const { return m_nativeHandle; }
+        int GetWidth() const { return m_settings.width; }
+        int GetHeight() const { return m_settings.height; }
         float GetAspectRatio() const;
 
     private:

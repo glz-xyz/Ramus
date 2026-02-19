@@ -25,7 +25,8 @@ namespace ramus
 
     void Renderer::BeginFrame()
     {
-        m_graphicsContext->SetClearColor(0.384f, 0.506f, 0.255f, 1.0f);
+        //m_graphicsContext->SetClearColor(0.384f, 0.506f, 0.255f, 1.0f);
+        m_graphicsContext->SetClearColor(0.15f, 0.15f, 0.15f, 1.0f);
         m_graphicsContext->Clear();
     }
 

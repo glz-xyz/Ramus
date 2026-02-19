@@ -45,7 +45,7 @@ FetchContent_Declare(assimp GIT_REPOSITORY https://github.com/assimp/assimp.git 
 FetchContent_Declare(Catch2 GIT_REPOSITORY https://github.com/catchorg/Catch2.git   GIT_TAG v3.12.0)
 FetchContent_Declare(glm    GIT_REPOSITORY https://github.com/g-truc/glm.git        GIT_TAG 1.0.3)
 FetchContent_Declare(glfw   GIT_REPOSITORY https://github.com/glfw/glfw.git         GIT_TAG 3.4)
-FetchContent_Declare(imgui  GIT_REPOSITORY https://github.com/ocornut/imgui.git     GIT_TAG v1.92.5)
+FetchContent_Declare(imgui  GIT_REPOSITORY https://github.com/ocornut/imgui.git     GIT_TAG docking)
 FetchContent_Declare(json   GIT_REPOSITORY https://github.com/nlohmann/json.git     GIT_TAG v3.12.0)
 FetchContent_Declare(spdlog GIT_REPOSITORY https://github.com/gabime/spdlog.git     GIT_TAG v1.17.0)
 FetchContent_Declare(stb    GIT_REPOSITORY https://github.com/nothings/stb.git      master)
@@ -128,10 +128,15 @@ set(RAMUS_GRAPHICS
     Source/src/Graphics/Geometry/Mesh.cpp
 )
 
+set(RAMUS_UI
+    Source/src/UI/ImGuiLayer.cpp
+)
+
 add_library(RamusEngine STATIC
     ${RAMUS_CORE}
     ${RAMUS_ASSETS}
     ${RAMUS_GRAPHICS}
+    ${RAMUS_UI}
 )
 
 target_include_directories(RamusEngine 
@@ -145,10 +150,11 @@ target_precompile_headers(RamusEngine PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/Sourc
 
 target_link_libraries(RamusEngine 
     PUBLIC
-        glm::glm
-        spdlog::spdlog
         glad
+        glm::glm
+        imgui_setup
         nlohmann_json::nlohmann_json
+        spdlog::spdlog
     PRIVATE
         assimp::assimp
         glfw

@@ -5,6 +5,7 @@
 #include "Ramus/Core/Engine/Window.hpp"
 #include "Ramus/Graphics/Renderer/Renderer.hpp"
 #include "Ramus/Graphics/Device/GraphicsDevice.hpp"
+#include "Ramus/UI/ImGuiLayer.hpp"
 
 namespace ramus
 {
@@ -31,6 +32,7 @@ namespace ramus
     private:
         void InitWindowing();
         void InitGraphics();
+        void InitImGuiLayer();
         void InitAssets();
 
         std::unique_ptr<Window> m_window;
@@ -38,6 +40,7 @@ namespace ramus
         std::unique_ptr<Renderer> m_renderer;
         std::unique_ptr<AssetManager> m_assetManager;
         std::unique_ptr<Application> m_application;
+        std::unique_ptr<ImGuiLayer> m_imguiLayer;
 
         EngineConfig m_config;
     };
