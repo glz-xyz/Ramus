@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.28)
 project(Ramus LANGUAGES CXX C)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
@@ -32,6 +32,8 @@ set(CATCH_INSTALL_HELPERS OFF CACHE BOOL "" FORCE)
 set(CATCH_BUILD_TESTING OFF CACHE BOOL "" FORCE)
 set(CATCH_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
+set(ENTT_INSTALL OFF CACHE INTERNAL "")
+
 set(GLM_BUILD_LIBRARY OFF CACHE BOOL "" FORCE)
 
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
@@ -43,6 +45,7 @@ set(SPDLOG_INSTALL OFF CACHE BOOL "" FORCE)
 
 FetchContent_Declare(assimp GIT_REPOSITORY https://github.com/assimp/assimp.git     GIT_TAG v6.0.4)
 FetchContent_Declare(Catch2 GIT_REPOSITORY https://github.com/catchorg/Catch2.git   GIT_TAG v3.12.0)
+FetchContent_Declare(entt   GIT_REPOSITORY https://github.com/skypjack/entt.git     GIT_TAG v3.16.0)
 FetchContent_Declare(glm    GIT_REPOSITORY https://github.com/g-truc/glm.git        GIT_TAG 1.0.3)
 FetchContent_Declare(glfw   GIT_REPOSITORY https://github.com/glfw/glfw.git         GIT_TAG 3.4)
 FetchContent_Declare(imgui  GIT_REPOSITORY https://github.com/ocornut/imgui.git     GIT_TAG docking)
@@ -50,7 +53,7 @@ FetchContent_Declare(json   GIT_REPOSITORY https://github.com/nlohmann/json.git 
 FetchContent_Declare(spdlog GIT_REPOSITORY https://github.com/gabime/spdlog.git     GIT_TAG v1.17.0)
 FetchContent_Declare(stb    GIT_REPOSITORY https://github.com/nothings/stb.git      master)
 
-FetchContent_MakeAvailable(assimp Catch2 glm glfw imgui json spdlog)
+FetchContent_MakeAvailable(assimp Catch2 entt glm glfw imgui json spdlog)
 
 # Note: stb has no CMakeLists.txt
 FetchContent_GetProperties(stb)
@@ -148,6 +151,7 @@ target_precompile_headers(RamusEngine PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/Sourc
 
 target_link_libraries(RamusEngine 
     PUBLIC
+        EnTT::EnTT
         glad
         glm::glm
         imgui_setup
