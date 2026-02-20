@@ -133,6 +133,8 @@ set(RAMUS_UI
     Source/src/UI/EditorLayer.cpp
 )
 
+add_compile_definitions(RAMUS_ASSETS_PATH=\"${CMAKE_SOURCE_DIR}/Assets\")
+
 add_library(RamusEngine STATIC
     ${RAMUS_CORE}
     ${RAMUS_ASSETS}
