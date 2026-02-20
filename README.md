@@ -7,7 +7,7 @@
 ![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)
 ---
 
-High-performance procedural flora generation and real-time rendering built _from the ground up_ in C++17 and Modern OpenGL.
+High-performance procedural flora generation and real-time rendering built _from the ground up_ in C++20 and Modern OpenGL.
 
 ## 🌅 Horizon
 The long-term vision for Ramus. We track our high-level goals via GitHub Projects, but you may also [visalize our roadmap here](roadmap.sh/ramus).
