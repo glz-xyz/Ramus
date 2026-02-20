@@ -3,8 +3,7 @@
 #include <glad/gl.h>
 
 #include "Ramus/Graphics/GraphicsDefines.hpp"
-//#include "Ramus/Graphics/Device/Buffer.hpp"
-//#include "Ramus/Graphics/Device/GraphicsResource.hpp"
+#include "Ramus/Graphics/Device/OpenGL/OpenGLBuffer.hpp"
 
 namespace ramus::gl
 {
@@ -39,5 +38,26 @@ namespace ramus::gl
         }
 
         return 0;
+    }
+
+    static GLbitfield BufferFlagsToOpenGL(BufferFlags flags) 
+    {
+        GLbitfield glFlags = 0;
+        if ((uint32_t)flags & (uint32_t)BufferFlags::MapRead)  glFlags |= GL_MAP_READ_BIT;
+        if ((uint32_t)flags & (uint32_t)BufferFlags::MapWrite) glFlags |= GL_MAP_WRITE_BIT;
+        if ((uint32_t)flags & (uint32_t)BufferFlags::Dynamic)  glFlags |= GL_DYNAMIC_STORAGE_BIT;
+        if ((uint32_t)flags & (uint32_t)BufferFlags::Client)   glFlags |= GL_CLIENT_STORAGE_BIT;
+        return glFlags;
+    }
+
+    static GLenum BufferUsageToOpenGL(BufferUsage usage)
+    {
+        switch (usage)
+        {
+            case BufferUsage::Static:  return GL_STATIC_DRAW;
+            case BufferUsage::Dynamic: return GL_DYNAMIC_DRAW;
+            case BufferUsage::Stream:  return GL_STREAM_DRAW;
+        }
+        return GL_STATIC_DRAW;
     }
 }

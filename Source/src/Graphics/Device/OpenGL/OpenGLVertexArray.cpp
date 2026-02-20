@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Ramus/Graphics/Device/OpenGL/OpenGLVertexArray.hpp"
 #include "Ramus/Graphics/Device/OpenGL/OpenGLUtils.hpp"
 

@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Ramus/Graphics/Device/OpenGL/OpenGLDevice.hpp"
 #include "Ramus/Graphics/Device/OpenGL/OpenGLMesh.hpp"
 #include "Ramus/Graphics/Device/OpenGL/OpenGLShader.hpp"

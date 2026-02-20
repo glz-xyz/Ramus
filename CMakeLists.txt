@@ -116,7 +116,6 @@ set(RAMUS_GRAPHICS
     Source/src/Graphics/Device/OpenGL/OpenGLDevice.cpp
     Source/src/Graphics/Device/OpenGL/OpenGLIndexBuffer.cpp
     Source/src/Graphics/Device/OpenGL/OpenGLMesh.cpp
-    Source/src/Graphics/Device/OpenGL/OpenGLResource.cpp
     Source/src/Graphics/Device/OpenGL/OpenGLShader.cpp
     Source/src/Graphics/Device/OpenGL/OpenGLShaderProgram.cpp
     Source/src/Graphics/Device/OpenGL/OpenGLStorageBuffer.cpp
@@ -124,7 +123,6 @@ set(RAMUS_GRAPHICS
     Source/src/Graphics/Device/OpenGL/OpenGLUniformBuffer.cpp
     Source/src/Graphics/Device/OpenGL/OpenGLVertexArray.cpp
     Source/src/Graphics/Device/OpenGL/OpenGLVertexBuffer.cpp
-    Source/src/Graphics/Device/OpenGL/OpenGLUtils.cpp
     Source/src/Graphics/Geometry/Mesh.cpp
 )
 

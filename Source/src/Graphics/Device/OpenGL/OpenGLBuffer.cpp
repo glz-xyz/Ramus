@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Ramus/Graphics/Device/OpenGL/OpenGLBuffer.hpp"
 #include "Ramus/Core/Services/Logger.hpp"
 
