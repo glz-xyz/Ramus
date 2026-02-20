@@ -130,7 +130,7 @@ set(RAMUS_GRAPHICS
 )
 
 set(RAMUS_UI
-    Source/src/UI/ImGuiLayer.cpp
+    Source/src/UI/EditorLayer.cpp
 )
 
 add_library(RamusEngine STATIC
