@@ -1,4 +1,5 @@
 #include "Ramus/Core/Engine/Engine.hpp"
+#include "Ramus/UI/EditorLayer.hpp"
 #include "Ramus/Core/Engine/Application.hpp"
 #include "Ramus/Core/Engine/Window.hpp"
 #include "Ramus/Core/Services/Logger.hpp"
@@ -14,8 +15,8 @@ namespace ramus
     {
         InitWindowing();
         InitGraphics();
-        InitImGuiLayer();
         InitAssets();
+        InitEditorLayer();
     }
 
     Engine::~Engine()
@@ -45,17 +46,17 @@ namespace ramus
         {
             m_window->HandleEvents();
 
-            m_imguiLayer->BeginFrame();
+            m_editorLayer->BeginFrame();
             m_renderer->BeginFrame();
 
             double deltaTime = 16.0;
             m_application->OnUpdate(deltaTime);
             
             m_application->OnRender();
-            m_imguiLayer->OnImGuiRender();
+            m_editorLayer->OnImGuiRender();
             
             m_renderer->EndFrame();
-            m_imguiLayer->EndFrame();
+            m_editorLayer->EndFrame();
 
             m_graphicsDevice->Present();
         }
@@ -94,18 +95,20 @@ namespace ramus
         m_renderer = std::make_unique<Renderer>(m_graphicsDevice->GetContext());
     }
 
-    void Engine::InitImGuiLayer()
-    {
-        m_imguiLayer = std::make_unique<ImGuiLayer>();
-        m_imguiLayer->OnAttach(m_window->GetNativeHandle());
-
-    }
-
     void Engine::InitAssets()
     {
         assert(m_graphicsDevice != nullptr && "InitGraphics must be called before InitAssets!");
 
         m_assetManager = std::make_unique<AssetManager>(m_graphicsDevice.get());
         Logger::GetEngineLogger()->info("Loading engine assets");
+    }
+
+    void Engine::InitEditorLayer()
+    {
+        assert(m_assetManager != nullptr && "InitAssets must be called before InitEditorLayer!");
+
+        m_editorLayer = std::make_unique<EditorLayer>(m_assetManager.get());
+        m_editorLayer->OnAttach(m_window->GetNativeHandle());
+
     }
 }

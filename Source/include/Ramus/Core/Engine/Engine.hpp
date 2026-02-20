@@ -5,10 +5,11 @@
 #include "Ramus/Core/Engine/Window.hpp"
 #include "Ramus/Graphics/Renderer/Renderer.hpp"
 #include "Ramus/Graphics/Device/GraphicsDevice.hpp"
-#include "Ramus/UI/ImGuiLayer.hpp"
 
 namespace ramus
 {
+    class EditorLayer;
+
     struct EngineConfig
     {
         WindowSettings winSettings;
@@ -21,6 +22,15 @@ namespace ramus
     class Engine
     {
     public:
+        static std::filesystem::path GetAssetsPath() {
+            return std::filesystem::path(RAMUS_ASSETS_PATH);
+        }
+
+        static std::string GetFullAssetPath(const std::string& relativePath) {
+            return (GetAssetsPath() / relativePath).string();
+        }
+
+    public:
         Engine(const EngineConfig& config);
         ~Engine();
 
@@ -32,15 +42,15 @@ namespace ramus
     private:
         void InitWindowing();
         void InitGraphics();
-        void InitImGuiLayer();
         void InitAssets();
+        void InitEditorLayer();
 
         std::unique_ptr<Window> m_window;
         std::unique_ptr<GraphicsDevice> m_graphicsDevice;
         std::unique_ptr<Renderer> m_renderer;
         std::unique_ptr<AssetManager> m_assetManager;
         std::unique_ptr<Application> m_application;
-        std::unique_ptr<ImGuiLayer> m_imguiLayer;
+        std::unique_ptr<EditorLayer> m_editorLayer;
 
         EngineConfig m_config;
     };
