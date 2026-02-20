@@ -25,5 +25,6 @@ jobs:
         
       - name: Configure and Build
         run: |
+          rm -rf build
           cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DGLFW_BUILD_WAYLAND=OFF
           cmake --build build
