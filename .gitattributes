@@ -1,3 +1,11 @@
-assets/models/**/*.bin filter=lfs diff=lfs merge=lfs -text
-assets/models/**/*.gltf filter=lfs diff=lfs merge=lfs -text
-assets/models/**/*.png filter=lfs diff=lfs merge=lfs -text
+# Treat everything in Assets as LFS by default
+Assets/** filter=lfs diff=lfs merge=lfs -text
+
+# Explicitly keep these as text so we can edit/diff them
+Assets/**/*.glsl text
+Assets/**/*.vert text
+Assets/**/*.frag text
+Assets/**/*.mat text
+Assets/**/*.json text
+Assets/**/*.ramus text
+Assets/**/*.txt text
