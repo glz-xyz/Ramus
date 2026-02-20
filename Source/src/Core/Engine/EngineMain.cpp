@@ -15,7 +15,7 @@ int main(int argc, char** argv)
     }
     catch (const std::exception& e) 
     {
-        printf("FATAL ENGINE EXCEPTION: %s\n", e.what());
+        printf("FATAL ENGINE EXCEPTION: %s\n\n Press any key...", e.what());
         getchar(); 
         return EXIT_FAILURE;
     }
